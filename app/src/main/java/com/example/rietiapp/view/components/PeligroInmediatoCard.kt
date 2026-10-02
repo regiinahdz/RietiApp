@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.net.toUri
 
 @Composable
 fun PeligroInmediatoCard() {
@@ -55,7 +56,7 @@ fun PeligroInmediatoCard() {
                     val intent = Intent(
                         Intent.ACTION_DIAL
                     ).apply {
-                        data = Uri.parse("tel:5500000000")
+                        data = "tel:5500000000".toUri()
                     }
 
                     context.startActivity(intent)

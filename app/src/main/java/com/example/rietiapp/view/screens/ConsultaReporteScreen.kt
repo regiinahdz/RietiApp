@@ -1,4 +1,4 @@
-package com.example.rieti.view.screens
+package com.example.rietiapp.view.screens
 
 import android.R
 import androidx.compose.foundation.layout.Arrangement

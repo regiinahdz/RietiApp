@@ -1,7 +1,5 @@
 package com.example.rietiapp.view.navigation
 
-package com.example.rieti.view.navigation
-
 object Routes {
 
     const val HOME = "home"

@@ -1,5 +1,6 @@
 package com.example.rietiapp.view.screens.formularioPantallas.pasos
 
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -10,6 +11,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun Paso2Ubicacion(
+    fotosUris: List<Uri>,
+    onFotosChange: (List<Uri>) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -78,6 +81,11 @@ fun Paso2Ubicacion(
             Text(text = "Pendiente")
 
             Spacer(modifier = Modifier.height(24.dp))
+
+            SeccFotosReferencia(
+                fotosUris = fotosUris,
+                onFotosChange = onFotosChange
+            )
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.rietiapp.view.screens.formularioPantallas.pasos
 
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -14,6 +15,7 @@ fun Paso3Resumen(
     actividadSeleccionada: String,
     hora: String,
     riesgo: String,
+    fotosUris: List<Uri>,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -70,6 +72,9 @@ fun Paso3Resumen(
 
                     Text(text = "Ubicación", style = MaterialTheme.typography.labelMedium)
                     Text("Mapa pendiente")
+
+                    Text(text = "Fotografías adjuntas", style = MaterialTheme.typography.labelMedium)
+                    Text(if (fotosUris.isNotEmpty()) "${fotosUris.size} foto(s) seleccionada(s)" else "Ninguna")
                 }
             }
         }

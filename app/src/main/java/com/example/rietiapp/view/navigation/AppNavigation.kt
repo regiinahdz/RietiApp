@@ -17,6 +17,12 @@ import com.example.rietiapp.view.screens.pantallaPrincipal.HomeScreen
 //import com.example.rieti.view.screens.SeguimientoScreen
 //import com.example.rieti.view.screens.TipoReporteScreen
 import com.example.rietiapp.view.components.RietiTopBar
+import com.example.rietiapp.view.screens.formularioPantallas.ConfirmacionScreen
+import com.example.rietiapp.view.screens.formularioPantallas.FormularioScreen
+import com.example.rietiapp.view.screens.formularioPantallas.TipoReporteScreen
+import com.example.rietiapp.view.screens.pantallaPrincipal.PeligroScreen
+import com.example.rietiapp.view.screens.seguimientoReportes.ConsultaReporteScreen
+import com.example.rietiapp.view.screens.seguimientoReportes.SeguimientoScreen
 
 @Composable
 fun AppNavigation() {
@@ -61,73 +67,73 @@ fun AppNavigation() {
                 }
             }
 
-//            composable(Routes.SEGUIMIENTO) {
-//
-//                SeguimientoScreen(
-//                    onConsultarClick = {
-//                        navController.navigate(Routes.CONSULTA)
-//                    }
-//                )
-//            }
-//
-//            composable(Routes.PELIGRO) {
-//                PeligroScreen(
-//                    onBackClick = {
-//                        navController.popBackStack()
-//                    }
-//                )
-//            }
-//
-//            composable(Routes.CONSULTA) {
-//
-//                ConsultaReporteScreen(
-//                    folio = "RIETI-ATZ-2026-000123",
-//                    estado = "En revisión",
-//                    municipio = "Atizapán de Zaragoza"
-//                )
-//            }
-//
-//            composable(Routes.CONFIRMACION) {
-//
-//                ConfirmacionScreen(
-//                    onInicioClick = {
-//                        navController.navigate(Routes.HOME) {
-//                            popUpTo(Routes.HOME) {
-//                                inclusive = true
-//                            }
-//                        }
-//                    }
-//                )
-//            }
-//
-//            composable(Routes.TIPO_REPORTE) {
-//
-//                TipoReporteScreen(
-//                    onContinuarClick = {
-//                        navController.navigate(Routes.FORMULARIO)
-//                    }
-//                )
-//            }
-//
-//            composable(Routes.FORMULARIO) {
-//
-//                FormularioScreen(
-//                    onEnviarClick = {
-//                        navController.navigate(Routes.CONFIRMACION)
-//                    }
-//                )
-//            }
-//
-//            composable(Routes.TOPBARRA) {
-//            }
-//
-//            composable(Routes.CONSULTA) {
-//                ConsultaReporteScreen(
-//                    folio = "RIETI-ATZ-2026-000123",
-//                    estado = "En revisión",
-//                    municipio = "Atizapán de Zaragoza"
-//                )
-//            }
+            composable(Routes.SEGUIMIENTO) {
+
+                SeguimientoScreen(
+                    onConsultarClick = {
+                        navController.navigate(Routes.CONSULTA)
+                    }
+                )
+            }
+
+            composable(Routes.PELIGRO) {
+                PeligroScreen(
+                    onBackClick = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+
+            composable(Routes.CONSULTA) {
+
+                ConsultaReporteScreen(
+                    folio = "RIETI-ATZ-2026-000123",
+                    estado = "En revisión",
+                    municipio = "Atizapán de Zaragoza"
+                )
+            }
+
+            composable(Routes.CONFIRMACION) {
+
+                ConfirmacionScreen(
+                    onInicioClick = {
+                        navController.navigate(Routes.HOME) {
+                            popUpTo(Routes.HOME) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                )
+            }
+
+            composable(Routes.TIPO_REPORTE) {
+
+                TipoReporteScreen(
+                    onContinuarClick = {
+                        navController.navigate(Routes.FORMULARIO)
+                    }
+                )
+            }
+
+            composable(Routes.FORMULARIO) {
+
+                FormularioScreen(
+                    onEnviarClick = {
+                        navController.navigate(Routes.CONFIRMACION)
+                    }
+                )
+            }
+
+            composable(Routes.TOPBARRA) {
+            }
+
+            composable(Routes.CONSULTA) {
+                ConsultaReporteScreen(
+                    folio = "RIETI-ATZ-2026-000123",
+                    estado = "En revisión",
+                    municipio = "Atizapán de Zaragoza"
+                )
+            }
 
 
         }

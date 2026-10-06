@@ -1,4 +1,4 @@
-package com.example.rietiapp.view.screens.pasos
+package com.example.rietiapp.view.screens.formularioPantallas.pasos
 
 import android.app.TimePickerDialog
 import androidx.compose.foundation.clickable

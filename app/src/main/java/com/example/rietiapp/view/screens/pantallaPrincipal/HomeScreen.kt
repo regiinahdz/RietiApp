@@ -1,4 +1,4 @@
-package com.example.rietiapp.view.screens
+package com.example.rietiapp.view.screens.pantallaPrincipal
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image

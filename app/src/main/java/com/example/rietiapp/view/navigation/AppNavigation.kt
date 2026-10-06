@@ -8,8 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.rietiapp.view.screens.HomeScreen
-//import com.example.rietiapp.view.screens.ConfirmacionScreen
+import com.example.rietiapp.view.screens.pantallaPrincipal.HomeScreen
+//import com.example.rietiapp.view.screens.formularioPantallas.ConfirmacionScreen
 //import com.example.rieti.view.screens.FormularioScreen
 //import com.example.rieti.view.screens.PeligroScreen
 //import com.example.rieti.view.components.RietiTopBar

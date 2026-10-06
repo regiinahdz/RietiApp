@@ -1,19 +1,10 @@
-package com.example.rietiapp.view.screens
+package com.example.rietiapp.view.screens.formularioPantallas
 
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.dp
-import com.example.rietiapp.view.components.RietiCard
 import com.example.rietiapp.view.components.RietiSelectableCard
 
 @OptIn(ExperimentalMaterial3Api::class)

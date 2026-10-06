@@ -1,20 +1,26 @@
-package com.example.rietiapp.view.screens
+package com.example.rietiapp.view.screens.seguimientoReportes
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PeligroScreen(
-    onBackClick: () -> Unit
+fun SeguimientoScreen(
+    onConsultarClick: () -> Unit
 ) {
+
+    var folio by remember {
+        mutableStateOf("")
+    }
 
     Column(
         modifier = Modifier
@@ -24,18 +30,27 @@ fun PeligroScreen(
     ) {
 
         Text(
-            text = "Situación de peligro inmediato",
+            text = "Seguimiento de reporte",
             style = MaterialTheme.typography.headlineSmall
         )
 
         Text(
-            text = "Si una niña, niño o adolescente se encuentra en peligro inmediato, comunícate con el número de emergencia."
+            text = "Ingresa el folio de tu reporte"
+        )
+
+        OutlinedTextField(
+            value = folio,
+            onValueChange = { folio = it },
+            label = { Text("Folio") },
+            modifier = Modifier.fillMaxWidth()
         )
 
         Button(
-            onClick = {}
+            onClick = onConsultarClick,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Llamar")
+            Text("Consultar")
         }
     }
 }
+

@@ -1,4 +1,4 @@
-package com.example.rietiapp.view.screens
+package com.example.rietiapp.view.screens.seguimientoReportes
 
 fun obtenerDescripcionEstado(
     estado: String

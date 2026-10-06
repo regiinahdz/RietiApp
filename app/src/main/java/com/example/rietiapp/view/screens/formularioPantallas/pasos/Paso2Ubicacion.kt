@@ -1,4 +1,4 @@
-package com.example.rietiapp.view.screens.pasos
+package com.example.rietiapp.view.screens.formularioPantallas.pasos
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*

@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Paso1Informacion(
-    cantidad: String,
+    cantidadSeleccionada: String,
     onCantidadChange: (String) -> Unit,
     edadSeleccionada: String,
     onEdadSelected: (String) -> Unit,
@@ -28,10 +28,12 @@ fun Paso1Informacion(
 ) {
     val context = LocalContext.current
 
+    var expandedCantidad by remember { mutableStateOf(false ) }
     var expandedEdad by remember { mutableStateOf(false) }
     var expandedGenero by remember { mutableStateOf(false) }
     var expandedActividad by remember { mutableStateOf(false) }
 
+    val cantidades = listOf("1", "2", "3", "4", "5 o más", "No sé")
     val edades = listOf("0 a 5 años", "6 a 11 años", "12 a 17 años")
     val generos = listOf("Femenino", "Masculino", "No identificado")
     val actividades = listOf(
@@ -63,12 +65,37 @@ fun Paso1Informacion(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            OutlinedTextField(
-                value = cantidad,
-                onValueChange = onCantidadChange,
-                label = { Text("¿Cuántas niñas, niños o adolescentes observaste?") },
-                modifier = Modifier.fillMaxWidth()
-            )
+            // CANTIDAD DE NIÑOS
+            ExposedDropdownMenuBox(
+                expanded = expandedCantidad,
+                onExpandedChange = { expandedCantidad = !expandedCantidad }
+            ) {
+                OutlinedTextField(
+                    value = cantidadSeleccionada,
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text("¿Cuántas niñas, niños o adolescentes observaste?") },
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedCantidad) },
+                    modifier = Modifier
+                        .menuAnchor()
+                        .fillMaxWidth()
+                )
+
+                ExposedDropdownMenu(
+                    expanded = expandedCantidad,
+                    onDismissRequest = { expandedCantidad = false }
+                ) {
+                    cantidades.forEach { opcion ->
+                        DropdownMenuItem(
+                            text = { Text(opcion) },
+                            onClick = {
+                                onCantidadChange(opcion)
+                                expandedCantidad = false
+                            }
+                        )
+                    }
+                }
+            }
 
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -209,12 +236,26 @@ fun Paso1Informacion(
             // RIESGO
             Text(text = "¿Observaste alguna situación de riesgo?")
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             Row {
                 RadioButton(
                     selected = riesgo == "Sí",
                     onClick = { onRiesgoChange("Sí") }
                 )
                 Text("Sí")
+
+                RadioButton(
+                    selected = riesgo == "No",
+                    onClick = { onRiesgoChange("No") }
+                )
+                Text("No")
+
+                RadioButton(
+                    selected = riesgo == "No se",
+                    onClick = { onRiesgoChange("No se") }
+                )
+                Text("No se")
             }
         }
     }

@@ -22,7 +22,7 @@ fun FormularioScreen(
     var pasoActual by remember { mutableStateOf(0) }
 
     // Estado del Paso 1: Información básica
-    var cantidad by remember { mutableStateOf("") }
+    var cantidadSeleccionada by remember { mutableStateOf("") }
     var edadSeleccionada by remember { mutableStateOf("") }
     var generoSeleccionado by remember { mutableStateOf("") }
     var actividadSeleccionada by remember { mutableStateOf("") }
@@ -76,8 +76,8 @@ fun FormularioScreen(
                     // Delegación a los archivos correspondientes según el paso actual
                     when (pasoActual) {
                         0 -> Paso1Informacion(
-                            cantidad = cantidad,
-                            onCantidadChange = { cantidad = it },
+                            cantidadSeleccionada = cantidadSeleccionada,
+                            onCantidadChange = { cantidadSeleccionada = it },
                             edadSeleccionada = edadSeleccionada,
                             onEdadSelected = { edadSeleccionada = it },
                             generoSeleccionado = generoSeleccionado,
@@ -96,7 +96,7 @@ fun FormularioScreen(
                         )
 
                         2 -> Paso3Resumen(
-                            cantidad = cantidad,
+                            cantidad = cantidadSeleccionada,
                             edadSeleccionada = edadSeleccionada,
                             generoSeleccionado = generoSeleccionado,
                             actividadSeleccionada = actividadSeleccionada,

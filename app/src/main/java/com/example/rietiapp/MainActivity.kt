@@ -12,6 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.rietiapp.ui.theme.RietiAppTheme
+import com.example.rietiapp.view.navigation.AppNavigation
+import com.example.rietiapp.ui.theme.RietiAppTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,8 +22,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             RietiAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                                   }
+                AppNavigation()
             }
         }
     }

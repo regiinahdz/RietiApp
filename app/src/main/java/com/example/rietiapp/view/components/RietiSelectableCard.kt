@@ -1,4 +1,4 @@
-package com.example.rieti.view.components
+package com.example.rietiapp.view.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable

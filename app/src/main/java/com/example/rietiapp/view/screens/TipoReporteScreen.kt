@@ -1,4 +1,4 @@
-package com.example.rieti.view.screens
+package com.example.rietiapp.view.screens
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.dp
-import com.example.rieti.view.components.RietiCard
-import com.example.rieti.view.components.RietiSelectableCard
+import com.example.rietiapp.view.components.RietiCard
+import com.example.rietiapp.view.components.RietiSelectableCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

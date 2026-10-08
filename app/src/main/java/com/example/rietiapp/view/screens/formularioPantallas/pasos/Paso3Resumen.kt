@@ -17,7 +17,8 @@ fun Paso3Resumen(
     riesgo: String,
     descripcion: String,
     fotosUris: List<Uri>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    ubicacionDireccion: String = ""
 ) {
     Card(
         modifier = modifier.fillMaxWidth()
@@ -53,6 +54,7 @@ fun Paso3Resumen(
 
                     HorizontalDivider()
 
+<<<<<<< HEAD
                     Text(text = "Cantidad observada", style = MaterialTheme.typography.labelLarge)
                     Text(cantidad)
 
@@ -61,21 +63,31 @@ fun Paso3Resumen(
 
                     Text(text = "Género observado", style = MaterialTheme.typography.labelLarge)
                     Text(generoSeleccionado)
+=======
+                    Text(text = "Cantidad observada", style = MaterialTheme.typography.labelMedium)
+                    Text(if (cantidad.isNotBlank()) cantidad else "No especificada")
+
+                    Text(text = "Edad aproximada", style = MaterialTheme.typography.labelMedium)
+                    Text(if (edadSeleccionada.isNotBlank()) edadSeleccionada else "No especificada")
+
+                    Text(text = "Género observado", style = MaterialTheme.typography.labelMedium)
+                    Text(if (generoSeleccionado.isNotBlank()) generoSeleccionado else "No especificado")
+>>>>>>> fd92dc9605503b5d39f207efd3b5e4b86d79b996
 
                     Text(text = "Actividad realizada", style = MaterialTheme.typography.labelMedium)
-                    Text(actividadSeleccionada)
+                    Text(if (actividadSeleccionada.isNotBlank()) actividadSeleccionada else "No especificada")
 
                     Text(text = "Hora aproximada", style = MaterialTheme.typography.labelMedium)
-                    Text(hora)
+                    Text(if (hora.isNotBlank()) hora else "No especificada")
 
                     Text(text = "Situación de riesgo", style = MaterialTheme.typography.labelMedium)
-                    Text(riesgo)
+                    Text(if (riesgo.isNotBlank()) riesgo else "No especificada")
 
                     Text(text = "Breve descripción de lo visto", style = MaterialTheme.typography.labelMedium)
                     Text(descripcion)
 
                     Text(text = "Ubicación", style = MaterialTheme.typography.labelMedium)
-                    Text("Mapa pendiente")
+                    Text(if (ubicacionDireccion.isNotBlank()) ubicacionDireccion else "No seleccionada")
 
                     Text(text = "Fotografías adjuntas", style = MaterialTheme.typography.labelMedium)
                     Text(if (fotosUris.isNotEmpty()) "${fotosUris.size} foto(s) seleccionada(s)" else "Ninguna")

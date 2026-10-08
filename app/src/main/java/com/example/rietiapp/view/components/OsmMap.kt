@@ -29,7 +29,7 @@ fun OsmMap() {
                 context.cacheDir
 
             Configuration.getInstance().userAgentValue =
-                "RIETI-App/1.0"
+                "Mozilla/5.0 (Android; Mobile)"
 
             MapView(context).apply {
 

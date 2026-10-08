@@ -1,7 +1,9 @@
 package com.example.rietiapp.view.screens.formularioPantallas
 
 import android.net.Uri
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormularioScreen( viewModel: ReporteViewModel,
@@ -27,6 +30,9 @@ fun FormularioScreen( viewModel: ReporteViewModel,
 ) {
     // Control de flujo del formulario
     var pasoActual by remember { mutableStateOf(0) }
+
+    //Estado del paso 0: Seguimiento o anonimo
+    //var correo by remember { mutableStateOf("") }
 
     // Estado del Paso 1: Información básica
     var cantidadSeleccionada by remember { mutableStateOf("") }

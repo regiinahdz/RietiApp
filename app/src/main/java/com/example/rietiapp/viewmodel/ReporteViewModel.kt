@@ -7,12 +7,6 @@ import androidx.lifecycle.ViewModel
 
 class ReporteViewModel : ViewModel() {
 
-    var folio by mutableStateOf("")
-        private set
-
-    var estatus by mutableStateOf("")
-        private set
-
     fun actualizarFolio(
         nuevoFolio: String
     ) {

@@ -149,22 +149,39 @@ fun FormularioScreen( viewModel: ReporteViewModel,
                                             RetrofitInstance.api.crearReporte(
 
                                                 ReporteRequest(
+
                                                     idMunicipio = 1,
                                                     idCatalogoActividad = 1,
                                                     modalidad = "SEGUIMIENTO",
                                                     correo_contacto = "usuario@example.com",
-                                                    num_menores = 1,
-                                                    rango_edad = "No especificado",
-                                                    genero_observado = "No especificado",
-                                                    hora_observada = "14:30:00",
-                                                    descripcion = "Prueba Android",
-                                                    situacion_riesgo = false,
+                                                    num_menores =
+                                                        cantidadSeleccionada.toIntOrNull() ?: 1,
+                                                    rango_edad =
+                                                        edadSeleccionada.ifBlank {
+                                                            "No especificado"
+                                                        },
+                                                    genero_observado =
+                                                        generoSeleccionado.ifBlank {
+                                                            "No especificado"
+                                                        },
+                                                    hora_observada =
+                                                        hora.ifBlank {
+                                                            java.time.LocalTime.now()
+                                                                .withNano(0)
+                                                                .toString()
+                                                        },
+                                                    descripcion =
+                                                        descripcion.ifBlank {
+                                                            "Sin descripción"
+                                                        },
+                                                    situacion_riesgo =
+                                                        riesgo == "Sí",
                                                     latitud = 0.0,
                                                     longitud = 0.0,
-                                                    calle = "Prueba",
-                                                    colonia = "Prueba",
-                                                    cp = "50000",
-                                                    referencias = "Prueba",
+                                                    calle = "No especificada",
+                                                    colonia = "No especificada",
+                                                    cp = "",
+                                                    referencias = "",
                                                     acepto_aviso = true
                                                 )
                                             )

@@ -1,7 +1,6 @@
 package com.example.rietiapp.view.navigation
 
 object Routes {
-
     const val HOME = "home"
     const val TIPO_REPORTE = "tipo_reporte"
     const val FORMULARIO = "formulario"

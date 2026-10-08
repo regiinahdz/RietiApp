@@ -9,13 +9,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.rietiapp.view.screens.pantallaPrincipal.HomeScreen
-//import com.example.rietiapp.view.screens.formularioPantallas.ConfirmacionScreen
-//import com.example.rieti.view.screens.FormularioScreen
-//import com.example.rieti.view.screens.PeligroScreen
-//import com.example.rieti.view.components.RietiTopBar
-//import com.example.rieti.view.screens.ConsultaReporteScreen
-//import com.example.rieti.view.screens.SeguimientoScreen
-//import com.example.rieti.view.screens.TipoReporteScreen
 import com.example.rietiapp.view.components.RietiTopBar
 import com.example.rietiapp.view.screens.formularioPantallas.ConfirmacionScreen
 import com.example.rietiapp.view.screens.formularioPantallas.FormularioScreen
@@ -23,6 +16,8 @@ import com.example.rietiapp.view.screens.formularioPantallas.TipoReporteScreen
 import com.example.rietiapp.view.screens.pantallaPrincipal.PeligroScreen
 import com.example.rietiapp.view.screens.seguimientoReportes.ConsultaReporteScreen
 import com.example.rietiapp.view.screens.seguimientoReportes.SeguimientoScreen
+import com.example.rietiapp.viewmodel.ReporteViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun AppNavigation() {
@@ -32,6 +27,8 @@ fun AppNavigation() {
     val currentRoute =
         navController.currentBackStackEntryAsState()
             .value?.destination?.route
+
+    val reporteViewModel: ReporteViewModel = viewModel()
 
     Scaffold(
 
@@ -96,6 +93,7 @@ fun AppNavigation() {
             composable(Routes.CONFIRMACION) {
 
                 ConfirmacionScreen(
+                    viewModel = reporteViewModel,
                     onInicioClick = {
                         navController.navigate(Routes.HOME) {
                             popUpTo(Routes.HOME) {
@@ -118,6 +116,7 @@ fun AppNavigation() {
             composable(Routes.FORMULARIO) {
 
                 FormularioScreen(
+                    viewModel = reporteViewModel,
                     onEnviarClick = {
                         navController.navigate(Routes.CONFIRMACION)
                     }

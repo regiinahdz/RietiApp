@@ -10,9 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.rietiapp.view.components.RietiButton
+import com.example.rietiapp.viewmodel.ReporteViewModel
 
 @Composable
-fun ConfirmacionScreen(
+fun ConfirmacionScreen(viewModel: ReporteViewModel,
     onInicioClick: () -> Unit
 ) {
 
@@ -63,7 +64,7 @@ fun ConfirmacionScreen(
                 )
 
                 Text(
-                    text = "RIETI-2026-0001",
+                    text = viewModel.folio,
                     style = MaterialTheme.typography.titleLarge
                 )
             }

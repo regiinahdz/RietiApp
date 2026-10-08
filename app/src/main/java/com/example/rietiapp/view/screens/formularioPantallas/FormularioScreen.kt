@@ -14,6 +14,7 @@ import com.example.rietiapp.model.datos.ReporteRequest
 import com.example.rietiapp.view.screens.formularioPantallas.pasos.Paso1Informacion
 import com.example.rietiapp.view.screens.formularioPantallas.pasos.Paso2Ubicacion
 import com.example.rietiapp.view.screens.formularioPantallas.pasos.Paso3Resumen
+import com.example.rietiapp.viewmodel.ReporteViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FormularioScreen(
+fun FormularioScreen( viewModel: ReporteViewModel,
     onEnviarClick: () -> Unit
 ) {
     // Control de flujo del formulario
@@ -159,6 +160,17 @@ fun FormularioScreen(
                                                     acepto_aviso = true
                                                 )
                                             )
+
+                                        respuesta.body()?.let {
+
+                                            viewModel.actualizarFolio(
+                                                it.folio
+                                            )
+
+                                            viewModel.actualizarEstatus(
+                                                it.estatus
+                                            )
+                                        }
 
                                         Log.d(
                                             "RIETI_API",

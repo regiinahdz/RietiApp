@@ -38,6 +38,7 @@ fun FormularioScreen( viewModel: ReporteViewModel,
 
     // Estado del Paso 2: Ubicación y Fotografías
     var fotosUris by remember { mutableStateOf<List<Uri>>(emptyList()) }
+    var ubicacionDireccion by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -99,7 +100,9 @@ fun FormularioScreen( viewModel: ReporteViewModel,
 
                         1 -> Paso2Ubicacion(
                             fotosUris = fotosUris,
-                            onFotosChange = { fotosUris = it }
+                            onFotosChange = { fotosUris = it },
+                            ubicacionDireccion = ubicacionDireccion,
+                            onUbicacionChange = { ubicacionDireccion = it }
                         )
 
                         2 -> Paso3Resumen(
@@ -109,7 +112,8 @@ fun FormularioScreen( viewModel: ReporteViewModel,
                             actividadSeleccionada = actividadSeleccionada,
                             hora = hora,
                             riesgo = riesgo,
-                            fotosUris = fotosUris
+                            fotosUris = fotosUris,
+                            ubicacionDireccion = ubicacionDireccion
                         )
                     }
 

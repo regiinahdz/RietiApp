@@ -16,7 +16,8 @@ fun Paso3Resumen(
     hora: String,
     riesgo: String,
     fotosUris: List<Uri>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    ubicacionDireccion: String = ""
 ) {
     Card(
         modifier = modifier.fillMaxWidth()
@@ -53,25 +54,25 @@ fun Paso3Resumen(
                     HorizontalDivider()
 
                     Text(text = "Cantidad observada", style = MaterialTheme.typography.labelMedium)
-                    Text(cantidad)
+                    Text(if (cantidad.isNotBlank()) cantidad else "No especificada")
 
                     Text(text = "Edad aproximada", style = MaterialTheme.typography.labelMedium)
-                    Text(edadSeleccionada)
+                    Text(if (edadSeleccionada.isNotBlank()) edadSeleccionada else "No especificada")
 
                     Text(text = "Género observado", style = MaterialTheme.typography.labelMedium)
-                    Text(generoSeleccionado)
+                    Text(if (generoSeleccionado.isNotBlank()) generoSeleccionado else "No especificado")
 
                     Text(text = "Actividad realizada", style = MaterialTheme.typography.labelMedium)
-                    Text(actividadSeleccionada)
+                    Text(if (actividadSeleccionada.isNotBlank()) actividadSeleccionada else "No especificada")
 
                     Text(text = "Hora aproximada", style = MaterialTheme.typography.labelMedium)
-                    Text(hora)
+                    Text(if (hora.isNotBlank()) hora else "No especificada")
 
                     Text(text = "Situación de riesgo", style = MaterialTheme.typography.labelMedium)
-                    Text(riesgo)
+                    Text(if (riesgo.isNotBlank()) riesgo else "No especificada")
 
                     Text(text = "Ubicación", style = MaterialTheme.typography.labelMedium)
-                    Text("Mapa pendiente")
+                    Text(if (ubicacionDireccion.isNotBlank()) ubicacionDireccion else "No seleccionada")
 
                     Text(text = "Fotografías adjuntas", style = MaterialTheme.typography.labelMedium)
                     Text(if (fotosUris.isNotEmpty()) "${fotosUris.size} foto(s) seleccionada(s)" else "Ninguna")

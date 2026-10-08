@@ -1,7 +1,9 @@
 package com.example.rietiapp.view.screens.formularioPantallas
 
 import android.net.Uri
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormularioScreen( viewModel: ReporteViewModel,
@@ -35,6 +38,7 @@ fun FormularioScreen( viewModel: ReporteViewModel,
     var actividadSeleccionada by remember { mutableStateOf("") }
     var hora by remember { mutableStateOf("") }
     var riesgo by remember { mutableStateOf("") }
+    var descripcion by remember { mutableStateOf("") }
 
     // Estado del Paso 2: Ubicación y Fotografías
     var fotosUris by remember { mutableStateOf<List<Uri>>(emptyList()) }
@@ -94,7 +98,9 @@ fun FormularioScreen( viewModel: ReporteViewModel,
                             hora = hora,
                             onHoraSelected = { hora = it },
                             riesgo = riesgo,
-                            onRiesgoChange = { riesgo = it }
+                            onRiesgoChange = { riesgo = it },
+                            descripcion = descripcion,
+                            onDescripcionChange = { descripcion = it}
                         )
 
                         1 -> Paso2Ubicacion(
@@ -109,6 +115,7 @@ fun FormularioScreen( viewModel: ReporteViewModel,
                             actividadSeleccionada = actividadSeleccionada,
                             hora = hora,
                             riesgo = riesgo,
+                            descripcion = descripcion,
                             fotosUris = fotosUris
                         )
                     }
@@ -141,22 +148,39 @@ fun FormularioScreen( viewModel: ReporteViewModel,
                                             RetrofitInstance.api.crearReporte(
 
                                                 ReporteRequest(
+
                                                     idMunicipio = 1,
                                                     idCatalogoActividad = 1,
                                                     modalidad = "SEGUIMIENTO",
                                                     correo_contacto = "usuario@example.com",
-                                                    num_menores = 1,
-                                                    rango_edad = "No especificado",
-                                                    genero_observado = "No especificado",
-                                                    hora_observada = "14:30:00",
-                                                    descripcion = "Prueba Android",
-                                                    situacion_riesgo = false,
+                                                    num_menores =
+                                                        cantidadSeleccionada.toIntOrNull() ?: 1,
+                                                    rango_edad =
+                                                        edadSeleccionada.ifBlank {
+                                                            "No especificado"
+                                                        },
+                                                    genero_observado =
+                                                        generoSeleccionado.ifBlank {
+                                                            "No especificado"
+                                                        },
+                                                    hora_observada =
+                                                        hora.ifBlank {
+                                                            java.time.LocalTime.now()
+                                                                .withNano(0)
+                                                                .toString()
+                                                        },
+                                                    descripcion =
+                                                        descripcion.ifBlank {
+                                                            "Sin descripción"
+                                                        },
+                                                    situacion_riesgo =
+                                                        riesgo == "Sí",
                                                     latitud = 0.0,
                                                     longitud = 0.0,
-                                                    calle = "Prueba",
-                                                    colonia = "Prueba",
-                                                    cp = "50000",
-                                                    referencias = "Prueba",
+                                                    calle = "No especificada",
+                                                    colonia = "No especificada",
+                                                    cp = "",
+                                                    referencias = "",
                                                     acepto_aviso = true
                                                 )
                                             )

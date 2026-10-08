@@ -15,6 +15,7 @@ fun Paso3Resumen(
     actividadSeleccionada: String,
     hora: String,
     riesgo: String,
+    descripcion: String,
     fotosUris: List<Uri>,
     modifier: Modifier = Modifier
 ) {
@@ -52,13 +53,13 @@ fun Paso3Resumen(
 
                     HorizontalDivider()
 
-                    Text(text = "Cantidad observada", style = MaterialTheme.typography.labelMedium)
+                    Text(text = "Cantidad observada", style = MaterialTheme.typography.labelLarge)
                     Text(cantidad)
 
-                    Text(text = "Edad aproximada", style = MaterialTheme.typography.labelMedium)
+                    Text(text = "Edad aproximada", style = MaterialTheme.typography.labelLarge)
                     Text(edadSeleccionada)
 
-                    Text(text = "Género observado", style = MaterialTheme.typography.labelMedium)
+                    Text(text = "Género observado", style = MaterialTheme.typography.labelLarge)
                     Text(generoSeleccionado)
 
                     Text(text = "Actividad realizada", style = MaterialTheme.typography.labelMedium)
@@ -69,6 +70,9 @@ fun Paso3Resumen(
 
                     Text(text = "Situación de riesgo", style = MaterialTheme.typography.labelMedium)
                     Text(riesgo)
+
+                    Text(text = "Breve descripción de lo visto", style = MaterialTheme.typography.labelMedium)
+                    Text(descripcion)
 
                     Text(text = "Ubicación", style = MaterialTheme.typography.labelMedium)
                     Text("Mapa pendiente")

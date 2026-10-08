@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -24,6 +25,8 @@ fun Paso1Informacion(
     onHoraSelected: (String) -> Unit,
     riesgo: String,
     onRiesgoChange: (String) -> Unit,
+    descripcion: String,
+    onDescripcionChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -238,7 +241,13 @@ fun Paso1Informacion(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Row {
+            Row (modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically)
+            {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier){
                 RadioButton(
                     selected = riesgo == "Sí",
                     onClick = { onRiesgoChange("Sí") }
@@ -256,7 +265,20 @@ fun Paso1Informacion(
                     onClick = { onRiesgoChange("No se") }
                 )
                 Text("No se")
-            }
+            }}
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // CAMPO: CUÉNTANOS BREVEMENTE QUÉ OBSERVASTE
+            OutlinedTextField(
+                value = descripcion,
+                onValueChange = onDescripcionChange,
+                label = { Text("Cuéntanos brevemente qué observaste") },
+                placeholder = { Text("Escribe aquí los detalles...") },
+                modifier = Modifier.fillMaxWidth(),
+                minLines = 3,
+                maxLines = 5
+            )
         }
     }
 }

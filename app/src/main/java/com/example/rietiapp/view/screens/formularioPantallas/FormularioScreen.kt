@@ -1,6 +1,7 @@
 package com.example.rietiapp.view.screens.formularioPantallas
 
 import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -8,9 +9,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.rietiapp.model.api.RetrofitInstance
+import com.example.rietiapp.model.datos.ReporteRequest
 import com.example.rietiapp.view.screens.formularioPantallas.pasos.Paso1Informacion
 import com.example.rietiapp.view.screens.formularioPantallas.pasos.Paso2Ubicacion
 import com.example.rietiapp.view.screens.formularioPantallas.pasos.Paso3Resumen
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -127,6 +133,39 @@ fun FormularioScreen(
                                 if (pasoActual < 2) {
                                     pasoActual++
                                 } else {
+
+                                    CoroutineScope(Dispatchers.IO).launch {
+
+                                        val respuesta =
+                                            RetrofitInstance.api.crearReporte(
+
+                                                ReporteRequest(
+                                                    idMunicipio = 1,
+                                                    idCatalogoActividad = 1,
+                                                    modalidad = "SEGUIMIENTO",
+                                                    correo_contacto = "usuario@example.com",
+                                                    num_menores = 1,
+                                                    rango_edad = "No especificado",
+                                                    genero_observado = "No especificado",
+                                                    hora_observada = "14:30:00",
+                                                    descripcion = "Prueba Android",
+                                                    situacion_riesgo = false,
+                                                    latitud = 0.0,
+                                                    longitud = 0.0,
+                                                    calle = "Prueba",
+                                                    colonia = "Prueba",
+                                                    cp = "50000",
+                                                    referencias = "Prueba",
+                                                    acepto_aviso = true
+                                                )
+                                            )
+
+                                        Log.d(
+                                            "RIETI_API",
+                                            respuesta.body().toString()
+                                        )
+                                    }
+
                                     onEnviarClick()
                                 }
                             },

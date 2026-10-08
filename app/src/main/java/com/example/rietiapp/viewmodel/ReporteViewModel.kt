@@ -7,6 +7,10 @@ import androidx.lifecycle.ViewModel
 
 class ReporteViewModel : ViewModel() {
 
+    fun crearReporte() {
+
+    }
+
     fun actualizarFolio(
         nuevoFolio: String
     ) {

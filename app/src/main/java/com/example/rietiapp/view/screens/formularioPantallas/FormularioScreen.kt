@@ -151,62 +151,64 @@ fun FormularioScreen( viewModel: ReporteViewModel,
 
                                     CoroutineScope(Dispatchers.IO).launch {
 
-                                        val respuesta =
-                                            RetrofitInstance.api.crearReporte(
+                                        viewModel.crearReporte()
 
-                                                ReporteRequest(
+//                                        val respuesta =
+//                                            RetrofitInstance.api.crearReporte(
+//
+//                                                ReporteRequest(
+//
+//                                                    idMunicipio = 1,
+//                                                    idCatalogoActividad = 1,
+//                                                    modalidad = "SEGUIMIENTO",
+//                                                    correo_contacto = "usuario@example.com",
+//                                                    num_menores =
+//                                                        cantidadSeleccionada.toIntOrNull() ?: 1,
+//                                                    rango_edad =
+//                                                        edadSeleccionada.ifBlank {
+//                                                            "No especificado"
+//                                                        },
+//                                                    genero_observado =
+//                                                        generoSeleccionado.ifBlank {
+//                                                            "No especificado"
+//                                                        },
+//                                                    hora_observada =
+//                                                        hora.ifBlank {
+//                                                            java.time.LocalTime.now()
+//                                                                .withNano(0)
+//                                                                .toString()
+//                                                        },
+//                                                    descripcion =
+//                                                        descripcion.ifBlank {
+//                                                            "Sin descripción"
+//                                                        },
+//                                                    situacion_riesgo =
+//                                                        riesgo == "Sí",
+//                                                    latitud = 0.0,
+//                                                    longitud = 0.0,
+//                                                    calle = "No especificada",
+//                                                    colonia = "No especificada",
+//                                                    cp = "",
+//                                                    referencias = "",
+//                                                    acepto_aviso = true
+//                                                )
+//                                            )
+//
+//                                        respuesta.body()?.let {
+//
+//                                            viewModel.actualizarFolio(
+//                                                it.folio
+//                                            )
+//
+//                                            viewModel.actualizarEstatus(
+//                                                it.estatus
+//                                            )
+//                                        }
 
-                                                    idMunicipio = 1,
-                                                    idCatalogoActividad = 1,
-                                                    modalidad = "SEGUIMIENTO",
-                                                    correo_contacto = "usuario@example.com",
-                                                    num_menores =
-                                                        cantidadSeleccionada.toIntOrNull() ?: 1,
-                                                    rango_edad =
-                                                        edadSeleccionada.ifBlank {
-                                                            "No especificado"
-                                                        },
-                                                    genero_observado =
-                                                        generoSeleccionado.ifBlank {
-                                                            "No especificado"
-                                                        },
-                                                    hora_observada =
-                                                        hora.ifBlank {
-                                                            java.time.LocalTime.now()
-                                                                .withNano(0)
-                                                                .toString()
-                                                        },
-                                                    descripcion =
-                                                        descripcion.ifBlank {
-                                                            "Sin descripción"
-                                                        },
-                                                    situacion_riesgo =
-                                                        riesgo == "Sí",
-                                                    latitud = 0.0,
-                                                    longitud = 0.0,
-                                                    calle = "No especificada",
-                                                    colonia = "No especificada",
-                                                    cp = "",
-                                                    referencias = "",
-                                                    acepto_aviso = true
-                                                )
-                                            )
-
-                                        respuesta.body()?.let {
-
-                                            viewModel.actualizarFolio(
-                                                it.folio
-                                            )
-
-                                            viewModel.actualizarEstatus(
-                                                it.estatus
-                                            )
-                                        }
-
-                                        Log.d(
-                                            "RIETI_API",
-                                            respuesta.body().toString()
-                                        )
+//                                        Log.d(
+//                                            "RIETI_API",
+//                                            respuesta.body().toString()
+//                                        )
                                     }
 
                                     onEnviarClick()

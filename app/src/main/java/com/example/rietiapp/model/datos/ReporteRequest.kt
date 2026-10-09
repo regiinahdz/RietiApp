@@ -4,7 +4,7 @@ data class ReporteRequest(
     val idMunicipio: Int,
     val idCatalogoActividad: Int,
     val modalidad: String,
-    val correo_contacto: String,
+    val correo_contacto: String?,
     val num_menores: Int,
     val rango_edad: String,
     val genero_observado: String,
@@ -15,7 +15,7 @@ data class ReporteRequest(
     val longitud: Double,
     val calle: String,
     val colonia: String,
-    val cp: String,
-    val referencias: String,
+    val cp: String?,
+    val referencias: String?,
     val acepto_aviso: Boolean
 )

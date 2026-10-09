@@ -1,34 +1,43 @@
 package com.example.rietiapp.viewmodel
 
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+data class ReporteUiState(
 
-data class ReporteUiState (
-
-    val correo: String = "",
+    // Tipo de reporte
     val modalidad: String = "ANONIMO",
+    val correo: String = "",
 
-    val idMunicipio: Int,
-    val idCatalogoActivididad: Int,
+    // Catálogos
+    val idMunicipio: Int = 0,
+    val idCatalogoActividad: Int = 0,
 
+    // Información observada
     val cantidadSeleccionada: String = "1",
-    val edadSeleccionada: String = "No especificado.",
-    val generoSeleccionado: String = "No especificado.",
+    val edadSeleccionada: String = "No especificado",
+    val generoSeleccionado: String = "No especificado",
     val actividadSeleccionada: String = "",
-    // Formato HH:MM:SS (ejemplo: "14:35:09")
-    val hora: String = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date()),
-    val riesgo: String = "",
+
+    // Formato HH:mm:ss
+    val hora: String = "",
+
     val descripcion: String = "",
+    val riesgo: String = "",
 
-    val latitud: Double,
-    val longitud: Double,
-    val calle: String = "No especificado.",
-    val colonia: String = "No especificada",
+    // Ubicación
+    val latitud: Double = 0.0,
+    val longitud: Double = 0.0,
+
+    val direccion: String = "",
+
+    val calle: String = "",
+    val colonia: String = "",
+
     val cp: String = "",
-    val referencias:String = "",
-    val aceptoAviso: Boolean,
+    val referencias: String = "",
 
+    // Aviso de privacidad
+    val aceptoAviso: Boolean = true,
+
+    // Respuesta backend
     val folio: String = "",
     val estatus: String = ""
 )

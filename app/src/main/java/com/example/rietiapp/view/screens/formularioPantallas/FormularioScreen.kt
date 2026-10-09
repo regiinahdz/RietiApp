@@ -38,6 +38,7 @@ fun FormularioScreen( viewModel: ReporteViewModel,
     var descripcion = viewModel.uiState.descripcion
 
     // Estado del Paso 2: Ubicación y Fotografías
+    var referencias = viewModel.uiState.referencias
     var fotosUris by remember { mutableStateOf<List<Uri>>(emptyList()) }
     var ubicacionDireccion by remember { mutableStateOf("") }
 
@@ -86,22 +87,24 @@ fun FormularioScreen( viewModel: ReporteViewModel,
                     when (pasoActual) {
                         0 -> Paso1Informacion(
                             cantidadSeleccionada = cantidadSeleccionada,
-                            onCantidadChange = { cantidadSeleccionada = it },
+                            onCantidadChange = { viewModel },
                             edadSeleccionada = edadSeleccionada,
-                            onEdadSelected = { edadSeleccionada = it },
+                            onEdadSelected = { viewModel},
                             generoSeleccionado = generoSeleccionado,
-                            onGeneroSelected = { generoSeleccionado = it },
+                            onGeneroSelected = { viewModel },
                             actividadSeleccionada = actividadSeleccionada,
-                            onActividadSelected = { actividadSeleccionada = it },
+                            onActividadSelected = { viewModel },
                             hora = hora,
-                            onHoraSelected = { hora = it },
+                            onHoraSelected = { viewModel },
                             riesgo = riesgo,
                             descripcion = descripcion,
-                            onDescripcionChange = { descripcion = it},
+                            onDescripcionChange = { viewModel },
                             onRiesgoChange = { riesgo = it }
                         )
 
                         1 -> Paso2Ubicacion(
+                            referencias = referencias,
+                            onReferenciasChange = { referencias = it },
                             fotosUris = fotosUris,
                             onFotosChange = { fotosUris = it },
                             ubicacionDireccion = ubicacionDireccion,

@@ -10,6 +10,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material3.*
@@ -35,6 +36,8 @@ import org.osmdroid.views.overlay.Marker
 
 @Composable
 fun Paso2Ubicacion(
+    referencias: String = "",
+    onReferenciasChange: (String) -> Unit = {},
     fotosUris: List<Uri>,
     onFotosChange: (List<Uri>) -> Unit,
     modifier: Modifier = Modifier,
@@ -214,6 +217,26 @@ fun Paso2Ubicacion(
                     }
                 }
             }
+
+            // CAMPO DE REFERENCIAS DE LUGAR
+            OutlinedTextField(
+                value = referencias,
+                onValueChange = onReferenciasChange,
+                label = { Text("Referencias del lugar (opcional)") },
+                placeholder = { Text("Ej. Entre calle A y B, frente al parque, fachada color azul...") },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = null
+                    )
+                },
+                modifier = Modifier.fillMaxWidth(),
+                maxLines = 3,
+                singleLine = false,
+                supportingText = {
+                    Text("Describe detalles visuales útiles para encontrar el punto exacto.")
+                }
+            )
 
             // Asegúrate de tener la función SeccFotosReferencia definida en tu proyecto
             SeccFotosReferencia(

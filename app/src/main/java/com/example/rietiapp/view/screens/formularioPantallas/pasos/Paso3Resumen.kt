@@ -54,16 +54,7 @@ fun Paso3Resumen(
 
                     HorizontalDivider()
 
-<<<<<<< HEAD
-                    Text(text = "Cantidad observada", style = MaterialTheme.typography.labelLarge)
-                    Text(cantidad)
 
-                    Text(text = "Edad aproximada", style = MaterialTheme.typography.labelLarge)
-                    Text(edadSeleccionada)
-
-                    Text(text = "Género observado", style = MaterialTheme.typography.labelLarge)
-                    Text(generoSeleccionado)
-=======
                     Text(text = "Cantidad observada", style = MaterialTheme.typography.labelMedium)
                     Text(if (cantidad.isNotBlank()) cantidad else "No especificada")
 
@@ -72,7 +63,7 @@ fun Paso3Resumen(
 
                     Text(text = "Género observado", style = MaterialTheme.typography.labelMedium)
                     Text(if (generoSeleccionado.isNotBlank()) generoSeleccionado else "No especificado")
->>>>>>> fd92dc9605503b5d39f207efd3b5e4b86d79b996
+
 
                     Text(text = "Actividad realizada", style = MaterialTheme.typography.labelMedium)
                     Text(if (actividadSeleccionada.isNotBlank()) actividadSeleccionada else "No especificada")

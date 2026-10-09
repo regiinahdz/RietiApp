@@ -64,7 +64,7 @@ fun ConfirmacionScreen(viewModel: ReporteViewModel,
                 )
 
                 Text(
-                    text = viewModel.folio,
+                    text = viewModel.uiState.folio,
                     style = MaterialTheme.typography.titleLarge
                 )
             }

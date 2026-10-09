@@ -2,7 +2,6 @@ package com.example.rietiapp.view.screens.formularioPantallas
 
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -11,15 +10,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.rietiapp.model.api.RetrofitInstance
-import com.example.rietiapp.model.datos.ReporteRequest
 import com.example.rietiapp.view.screens.formularioPantallas.pasos.Paso1Informacion
 import com.example.rietiapp.view.screens.formularioPantallas.pasos.Paso2Ubicacion
 import com.example.rietiapp.view.screens.formularioPantallas.pasos.Paso3Resumen
 import com.example.rietiapp.viewmodel.ReporteViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -35,13 +29,13 @@ fun FormularioScreen( viewModel: ReporteViewModel,
     //var correo by remember { mutableStateOf("") }
 
     // Estado del Paso 1: Información básica
-    var cantidadSeleccionada by remember { mutableStateOf("") }
-    var edadSeleccionada by remember { mutableStateOf("") }
-    var generoSeleccionado by remember { mutableStateOf("") }
-    var actividadSeleccionada by remember { mutableStateOf("") }
-    var hora by remember { mutableStateOf("") }
-    var riesgo by remember { mutableStateOf("") }
-    var descripcion by remember { mutableStateOf("") }
+    var cantidadSeleccionada = viewModel.uiState.cantidadSeleccionada
+    var edadSeleccionada = viewModel.uiState.edadSeleccionada
+    var generoSeleccionado = viewModel.uiState.generoSeleccionado
+    var actividadSeleccionada = viewModel.uiState.actividadSeleccionada
+    var hora = viewModel.uiState.hora
+    var riesgo = viewModel.uiState.riesgo
+    var descripcion = viewModel.uiState.descripcion
 
     // Estado del Paso 2: Ubicación y Fotografías
     var fotosUris by remember { mutableStateOf<List<Uri>>(emptyList()) }
@@ -145,76 +139,19 @@ fun FormularioScreen( viewModel: ReporteViewModel,
 
                         Button(
                             onClick = {
+
                                 if (pasoActual < 2) {
+
                                     pasoActual++
+
                                 } else {
 
-                                    CoroutineScope(Dispatchers.IO).launch {
+                                    viewModel.enviarReporte {
 
-                                        viewModel.crearReporte()
-
-//                                        val respuesta =
-//                                            RetrofitInstance.api.crearReporte(
-//
-//                                                ReporteRequest(
-//
-//                                                    idMunicipio = 1,
-//                                                    idCatalogoActividad = 1,
-//                                                    modalidad = "SEGUIMIENTO",
-//                                                    correo_contacto = "usuario@example.com",
-//                                                    num_menores =
-//                                                        cantidadSeleccionada.toIntOrNull() ?: 1,
-//                                                    rango_edad =
-//                                                        edadSeleccionada.ifBlank {
-//                                                            "No especificado"
-//                                                        },
-//                                                    genero_observado =
-//                                                        generoSeleccionado.ifBlank {
-//                                                            "No especificado"
-//                                                        },
-//                                                    hora_observada =
-//                                                        hora.ifBlank {
-//                                                            java.time.LocalTime.now()
-//                                                                .withNano(0)
-//                                                                .toString()
-//                                                        },
-//                                                    descripcion =
-//                                                        descripcion.ifBlank {
-//                                                            "Sin descripción"
-//                                                        },
-//                                                    situacion_riesgo =
-//                                                        riesgo == "Sí",
-//                                                    latitud = 0.0,
-//                                                    longitud = 0.0,
-//                                                    calle = "No especificada",
-//                                                    colonia = "No especificada",
-//                                                    cp = "",
-//                                                    referencias = "",
-//                                                    acepto_aviso = true
-//                                                )
-//                                            )
-//
-//                                        respuesta.body()?.let {
-//
-//                                            viewModel.actualizarFolio(
-//                                                it.folio
-//                                            )
-//
-//                                            viewModel.actualizarEstatus(
-//                                                it.estatus
-//                                            )
-//                                        }
-
-//                                        Log.d(
-//                                            "RIETI_API",
-//                                            respuesta.body().toString()
-//                                        )
+                                        onEnviarClick()
                                     }
-
-                                    onEnviarClick()
                                 }
-                            },
-                            modifier = Modifier.weight(1f)
+                            }
                         ) {
                             Text(if (pasoActual == 2) "Enviar" else "Continuar")
                         }

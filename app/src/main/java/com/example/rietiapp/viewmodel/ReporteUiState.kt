@@ -1,14 +1,10 @@
 package com.example.rietiapp.viewmodel
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.Locale
 
-data class ReporteUiState @RequiresApi(Build.VERSION_CODES.O) constructor(
+data class ReporteUiState (
 
     val correo: String = "",
     val modalidad: String = "ANONIMO",

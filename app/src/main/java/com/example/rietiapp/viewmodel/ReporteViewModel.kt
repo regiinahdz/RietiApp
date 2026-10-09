@@ -36,6 +36,38 @@ class ReporteViewModel : ViewModel() {
         )
     }
 
+    fun actualizarEdad(
+        edad: String
+    ) {
+        uiState = uiState.copy(
+            edadSeleccionada = edad
+        )
+    }
+
+    fun actualizarGenero(
+        genero: String
+    ) {
+        uiState = uiState.copy(
+            generoSeleccionado = genero
+        )
+    }
+
+    fun actualizarActividad(
+        actividad: String
+    ) {
+        uiState = uiState.copy(
+            actividadSeleccionada = actividad
+        )
+    }
+
+    fun actualizarHora(
+        hora: String
+    ) {
+        uiState = uiState.copy(
+            actividadSeleccionada = hora
+        )
+    }
+
     fun actualizarDescripcion(
         descripcion: String
     ) {

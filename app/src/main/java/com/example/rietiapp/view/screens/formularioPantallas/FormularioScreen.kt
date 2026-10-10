@@ -168,4 +168,18 @@ fun FormularioScreen(
             }
         }
     }
+    if (uiState.error != null) {
+        AlertDialog(
+            onDismissRequest = { viewModel.updateState { it.copy(error = null) } },
+            title = { Text("Atención") },
+            text = { Text(uiState.error ?: "Ocurrió un error inesperado.") },
+            confirmButton = {
+                TextButton(
+                    onClick = { viewModel.updateState { it.copy(error = null) } }
+                ) {
+                    Text("Aceptar")
+                }
+            }
+        )
+    }
 }

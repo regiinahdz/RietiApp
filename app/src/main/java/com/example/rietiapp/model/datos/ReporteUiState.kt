@@ -1,4 +1,4 @@
-package com.example.rietiapp.viewmodel
+package com.example.rietiapp.model.datos
 
 import android.net.Uri
 

@@ -2,6 +2,7 @@ package com.example.rietiapp.model.api
 
 import com.example.rietiapp.model.datos.ConfirmarEvidenciaRequest
 import com.example.rietiapp.model.datos.ConfirmarEvidenciaResponse
+import com.example.rietiapp.model.datos.Municipio
 import com.example.rietiapp.model.datos.PresignedUrlRequest
 import com.example.rietiapp.model.datos.PresignedUrlResponse
 import com.example.rietiapp.model.datos.ReporteRequest
@@ -9,6 +10,7 @@ import com.example.rietiapp.model.datos.ReporteResponse
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT

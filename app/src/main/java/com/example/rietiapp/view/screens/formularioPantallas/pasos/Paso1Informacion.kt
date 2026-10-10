@@ -276,7 +276,7 @@ fun Paso1Informacion(
                 label = { Text("Cuéntanos brevemente qué observaste") },
                 placeholder = { Text("Escribe aquí los detalles...") },
                 modifier = Modifier.fillMaxWidth(),
-                minLines = 3,
+                minLines = 1,
                 maxLines = 5
             )
         }

@@ -36,4 +36,7 @@ interface ReporteApi {
     // Paso 2.3: Confirmar evidencia en MySQL
     @POST("api/v1/evidencias/confirmar")
     suspend fun confirmarEvidencia(@Body request: ConfirmarEvidenciaRequest): Response<ConfirmarEvidenciaResponse>
+
+    @GET("api/v1/municipios")
+    suspend fun obtenerMunicipios(): Response<List<Municipio>>
 }

@@ -51,4 +51,6 @@ class ReporteRepository {
             return false
         }
     }
+
+    suspend fun obtenerMunicipios() = api.obtenerMunicipios()
 }

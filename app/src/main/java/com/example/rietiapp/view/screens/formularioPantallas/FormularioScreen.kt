@@ -105,15 +105,11 @@ fun FormularioScreen(
                                 viewModel.updateState { it.copy(fotosUris = uris) }
                             },
                             ubicacionDireccion = uiState.direccion,
-                            onUbicacionChange = { lat, lng, dir ->
-                                viewModel.updateState {
-                                    it.copy(
-                                        latitud = lat,
-                                        longitud = lng,
-                                        direccion = dir
-                                    )
-                                }
-                            })
+                            onUbicacionChange = { lat, lng, dir, municipioDetectado ->
+                                // Llama a la función que busca el ID en base a la ubicación GPS
+                                viewModel.resolverYActualizarUbicacion(lat, lng, dir, municipioDetectado)
+                            }
+                        )
 
                         2 -> Paso3Resumen(
                             cantidad = uiState.cantidadSeleccionada,

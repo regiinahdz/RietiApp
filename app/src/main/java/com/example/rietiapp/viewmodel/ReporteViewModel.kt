@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.rietiapp.model.datos.ReporteRequest
 import com.example.rietiapp.model.repository.ReporteRepository
 import kotlinx.coroutines.launch
+import com.example.rietiapp.model.datos.Municipio
 
 class ReporteViewModel(
     private val repository: ReporteRepository = ReporteRepository()
@@ -19,8 +20,60 @@ class ReporteViewModel(
     var uiState by mutableStateOf(ReporteUiState())
         private set
 
+    private var catalogoMunicipios: List<Municipio> = emptyList()
+
     fun updateState(transform: (ReporteUiState) -> ReporteUiState) {
         uiState = transform(uiState)
+    }
+
+    init {
+        cargarCatalogoMunicipios()
+    }
+
+    private fun cargarCatalogoMunicipios() {
+        viewModelScope.launch {
+            try {
+                val response = repository.obtenerMunicipios()
+                if (response.isSuccessful) {
+                    catalogoMunicipios = response.body() ?: emptyList()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun resolverYActualizarUbicacion(
+        latitud: Double,
+        longitud: Double,
+        direccion: String,
+        nombreMunicipioDetectado: String
+    ) {
+        // Normaliza el texto para comparar fácilmente ("Atizapán" -> "atizapan")
+        val nombreLimpio = normalizarTexto(nombreMunicipioDetectado)
+
+        val municipioEncontrado = catalogoMunicipios.find { municipio ->
+            normalizarTexto(municipio.nombre).contains(nombreLimpio) ||
+                    nombreLimpio.contains(normalizarTexto(municipio.nombre))
+        }
+
+        val idEncontrado = municipioEncontrado?.id ?: uiState.idMunicipio
+
+        updateState {
+            it.copy(
+                latitud = latitud,
+                longitud = longitud,
+                direccion = direccion,
+                idMunicipio = idEncontrado // ¡Se asigna el ID automáticamente!
+            )
+        }
+    }
+
+    private fun normalizarTexto(texto: String): String {
+        return java.text.Normalizer.normalize(texto, java.text.Normalizer.Form.NFD)
+            .replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
+            .lowercase()
+            .trim()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -42,7 +42,8 @@ fun Paso2Ubicacion(
     onFotosChange: (List<Uri>) -> Unit,
     modifier: Modifier = Modifier,
     ubicacionDireccion: String = "",
-    onUbicacionChange: (latitud: Double, longitud: Double, direccion: String) -> Unit = { _, _, _ -> }
+    // Firma de 4 parámetros: latitud, longitud, dirección y municipio detectado
+    onUbicacionChange: (latitud: Double, longitud: Double, direccion: String, municipio: String) -> Unit = { _, _, _, _ -> }
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -53,15 +54,12 @@ fun Paso2Ubicacion(
     val seleccionarUbicacion: (GeoPoint) -> Unit = { geoPoint ->
         selectedPoint = geoPoint
         estaCargandoDireccion = true
-
-        // Notificamos las coordenadas inmediatamente
-        onUbicacionChange(geoPoint.latitude, geoPoint.longitude, "Buscando dirección...")
+        onUbicacionChange(geoPoint.latitude, geoPoint.longitude, "Buscando dirección...", "")
 
         coroutineScope.launch {
-            val direccion = obtenerDireccion(context, geoPoint)
+            val (direccion, municipioDetectado) = obtenerDireccionYMunicipio(context, geoPoint)
             estaCargandoDireccion = false
-            // Notificamos las coordenadas junto con la dirección final
-            onUbicacionChange(geoPoint.latitude, geoPoint.longitude, direccion)
+            onUbicacionChange(geoPoint.latitude, geoPoint.longitude, direccion, municipioDetectado)
         }
     }
 
@@ -222,7 +220,6 @@ fun Paso2Ubicacion(
                 }
             }
 
-            // CAMPO DE REFERENCIAS DE LUGAR
             OutlinedTextField(
                 value = referencias,
                 onValueChange = onReferenciasChange,
@@ -242,7 +239,6 @@ fun Paso2Ubicacion(
                 }
             )
 
-            // Asegúrate de tener la función SeccFotosReferencia definida en tu proyecto
             SeccFotosReferencia(
                 fotosUris = fotosUris,
                 onFotosChange = onFotosChange
@@ -381,44 +377,31 @@ private fun obtenerUbicacionActual(
     }
 }
 
-private suspend fun obtenerDireccion(context: Context, geoPoint: GeoPoint): String = withContext(Dispatchers.IO) {
+private suspend fun obtenerDireccionYMunicipio(
+    context: Context,
+    geoPoint: GeoPoint
+): Pair<String, String> = withContext(Dispatchers.IO) {
+    var direccion = ""
+    var municipioNombre = ""
+
     try {
         val geocoder = android.location.Geocoder(context, java.util.Locale.getDefault())
         @Suppress("DEPRECATION")
         val addresses = geocoder.getFromLocation(geoPoint.latitude, geoPoint.longitude, 1)
+
         if (!addresses.isNullOrEmpty()) {
             val addr = addresses[0]
+            municipioNombre = addr.subAdminArea ?: addr.locality ?: ""
             val street = addr.thoroughfare ?: addr.getFeatureName() ?: ""
-            val subLocality = addr.subLocality ?: addr.subAdminArea ?: ""
-            val locality = addr.locality ?: ""
-            val adminArea = addr.adminArea ?: ""
-            val parts = listOf(street, subLocality, locality, adminArea).filter { it.isNotBlank() }
-            if (parts.isNotEmpty()) {
-                return@withContext parts.joinToString(", ")
-            }
-            val addressLine = addr.getAddressLine(0)
-            if (!addressLine.isNullOrBlank()) {
-                return@withContext addressLine
-            }
+            val subLocality = addr.subLocality ?: ""
+            val parts = listOf(street, subLocality, municipioNombre).filter { it.isNotBlank() }
+            direccion = parts.joinToString(", ")
         }
     } catch (_: Exception) {}
 
-    try {
-        val urlString = "https://nominatim.openstreetmap.org/reverse?format=json&lat=${geoPoint.latitude}&lon=${geoPoint.longitude}"
-        val url = java.net.URL(urlString)
-        val conn = url.openConnection() as java.net.HttpURLConnection
-        conn.setRequestProperty("User-Agent", "RietiAppMobile/1.0")
-        conn.connectTimeout = 4000
-        conn.readTimeout = 4000
-        if (conn.responseCode == 200) {
-            val response = conn.inputStream.bufferedReader().readText()
-            val regex = """"display_name":\s*"([^"]+)"""".toRegex()
-            val match = regex.find(response)
-            if (match != null) {
-                return@withContext match.groupValues[1]
-            }
-        }
-    } catch (_: Exception) {}
+    if (direccion.isBlank()) {
+        direccion = "Latitud: %.4f, Longitud: %.4f".format(geoPoint.latitude, geoPoint.longitude)
+    }
 
-    return@withContext "Latitud: %.4f, Longitud: %.4f".format(geoPoint.latitude, geoPoint.longitude)
+    return@withContext Pair(direccion, municipioNombre)
 }

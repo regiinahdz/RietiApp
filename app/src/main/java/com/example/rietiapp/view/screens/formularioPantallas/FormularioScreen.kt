@@ -1,6 +1,5 @@
 package com.example.rietiapp.view.screens.formularioPantallas
 
-import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
@@ -9,38 +8,23 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.rietiapp.view.screens.formularioPantallas.pasos.Paso1Informacion
 import com.example.rietiapp.view.screens.formularioPantallas.pasos.Paso2Ubicacion
 import com.example.rietiapp.view.screens.formularioPantallas.pasos.Paso3Resumen
 import com.example.rietiapp.viewmodel.ReporteViewModel
 
-
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FormularioScreen( viewModel: ReporteViewModel,
+fun FormularioScreen(
+    viewModel: ReporteViewModel,
     onEnviarClick: () -> Unit
 ) {
-    // Control de flujo del formulario
-    var pasoActual by remember { mutableStateOf(0) }
-
-    //Estado del paso 0: Seguimiento o anonimo
-    //var correo by remember { mutableStateOf("") }
-
-    // Estado del Paso 1: Información básica
-    var cantidadSeleccionada = viewModel.uiState.cantidadSeleccionada
-    var edadSeleccionada = viewModel.uiState.edadSeleccionada
-    var generoSeleccionado = viewModel.uiState.generoSeleccionado
-    var actividadSeleccionada = viewModel.uiState.actividadSeleccionada
-    var hora = viewModel.uiState.hora
-    var riesgo = viewModel.uiState.riesgo
-    var descripcion = viewModel.uiState.descripcion
-
-    // Estado del Paso 2: Ubicación y Fotografías
-    var referencias = viewModel.uiState.referencias
-    var fotosUris by remember { mutableStateOf<List<Uri>>(emptyList()) }
-    var ubicacionDireccion by remember { mutableStateOf("") }
+    var pasoActual by remember { mutableIntStateOf(0) }
+    val uiState = viewModel.uiState
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -61,13 +45,8 @@ fun FormularioScreen( viewModel: ReporteViewModel,
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Card(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(
-                    modifier = Modifier.padding(8.dp)
-                ) {
-                    Spacer(modifier = Modifier.height(16.dp))
+            Card(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier.padding(8.dp)) {
 
                     LinearProgressIndicator(
                         progress = { (pasoActual + 1) / 3f },
@@ -83,50 +62,75 @@ fun FormularioScreen( viewModel: ReporteViewModel,
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Delegación a los archivos correspondientes según el paso actual
+                    // Delegación actualizando el estado dinámicamente
                     when (pasoActual) {
                         0 -> Paso1Informacion(
-                            cantidadSeleccionada = cantidadSeleccionada,
-                            onCantidadChange = { viewModel.actualizarCantidad(it) },
-                            edadSeleccionada = edadSeleccionada,
-                            onEdadSelected = { viewModel.actualizarEdad(it)},
-                            generoSeleccionado = generoSeleccionado,
-                            onGeneroSelected = { viewModel.actualizarGenero(it) },
-                            actividadSeleccionada = actividadSeleccionada,
-                            onActividadSelected = { viewModel.actualizarActividad(it) },
-                            hora = hora,
-                            onHoraSelected = { viewModel.actualizarHora(it) },
-                            riesgo = riesgo,
-                            descripcion = descripcion,
-                            onDescripcionChange = { viewModel },
-                            onRiesgoChange = { riesgo = it }
+                            cantidadSeleccionada = uiState.cantidadSeleccionada,
+                            onCantidadChange = { valor ->
+                                viewModel.updateState { it.copy(cantidadSeleccionada = valor) }
+                            },
+                            edadSeleccionada = uiState.edadSeleccionada,
+                            onEdadSelected = { valor ->
+                                viewModel.updateState { it.copy(edadSeleccionada = valor) }
+                            },
+                            generoSeleccionado = uiState.generoSeleccionado,
+                            onGeneroSelected = { valor ->
+                                viewModel.updateState { it.copy(generoSeleccionado = valor) }
+                            },
+                            actividadSeleccionada = uiState.actividadSeleccionada,
+                            onActividadSelected = { valor ->
+                                viewModel.updateState { it.copy(actividadSeleccionada = valor) }
+                            },
+                            hora = uiState.hora,
+                            onHoraSelected = { valor ->
+                                viewModel.updateState { it.copy(hora = valor) }
+                            },
+                            riesgo = uiState.riesgo,
+                            onRiesgoChange = { valor ->
+                                viewModel.updateState { it.copy(riesgo = valor) }
+                            },
+                            descripcion = uiState.descripcion,
+                            onDescripcionChange = { valor ->
+                                viewModel.updateState { it.copy(descripcion = valor) }
+                            }
                         )
 
                         1 -> Paso2Ubicacion(
-                            referencias = referencias,
-                            onReferenciasChange = { referencias = it },
-                            fotosUris = fotosUris,
-                            onFotosChange = { fotosUris = it },
-                            ubicacionDireccion = ubicacionDireccion,
-                            onUbicacionChange = { ubicacionDireccion = it }
-                        )
+                            referencias = uiState.referencias,
+                            onReferenciasChange = { valor ->
+                                viewModel.updateState { it.copy(referencias = valor) }
+                            },
+                            fotosUris = uiState.fotosUris,
+                            onFotosChange = { uris ->
+                                viewModel.updateState { it.copy(fotosUris = uris) }
+                            },
+                            ubicacionDireccion = uiState.direccion,
+                            onUbicacionChange = { lat, lng, dir ->
+                                viewModel.updateState {
+                                    it.copy(
+                                        latitud = lat,
+                                        longitud = lng,
+                                        direccion = dir
+                                    )
+                                }
+                            })
 
                         2 -> Paso3Resumen(
-                            cantidad = cantidadSeleccionada,
-                            edadSeleccionada = edadSeleccionada,
-                            generoSeleccionado = generoSeleccionado,
-                            actividadSeleccionada = actividadSeleccionada,
-                            hora = hora,
-                            riesgo = riesgo,
-                            descripcion = descripcion,
-                            fotosUris = fotosUris,
-                            ubicacionDireccion = ubicacionDireccion
+                            cantidad = uiState.cantidadSeleccionada,
+                            edadSeleccionada = uiState.edadSeleccionada,
+                            generoSeleccionado = uiState.generoSeleccionado,
+                            actividadSeleccionada = uiState.actividadSeleccionada,
+                            hora = uiState.hora,
+                            riesgo = uiState.riesgo,
+                            descripcion = uiState.descripcion,
+                            fotosUris = uiState.fotosUris,
+                            ubicacionDireccion = uiState.direccion
                         )
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Botones de navegación (Atrás / Continuar - Enviar)
+                    // Botones de navegación
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -142,21 +146,26 @@ fun FormularioScreen( viewModel: ReporteViewModel,
 
                         Button(
                             onClick = {
-
                                 if (pasoActual < 2) {
-
                                     pasoActual++
-
                                 } else {
-
-                                    viewModel.enviarReporte {
-
+                                    viewModel.enviarReporteConEvidencias(context) {
                                         onEnviarClick()
                                     }
                                 }
-                            }
+                            },
+                            enabled = !uiState.isLoading,
+                            modifier = Modifier.weight(1f)
                         ) {
-                            Text(if (pasoActual == 2) "Enviar" else "Continuar")
+                            if (uiState.isLoading) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(20.dp),
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    strokeWidth = 2.dp
+                                )
+                            } else {
+                                Text(if (pasoActual == 2) "Enviar" else "Continuar")
+                            }
                         }
                     }
                 }

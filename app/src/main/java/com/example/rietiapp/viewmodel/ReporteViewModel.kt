@@ -1,5 +1,6 @@
 package com.example.rietiapp.viewmodel
 
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
@@ -11,211 +12,81 @@ import com.example.rietiapp.model.datos.ReporteRequest
 import com.example.rietiapp.model.repository.ReporteRepository
 import kotlinx.coroutines.launch
 
-class ReporteViewModel : ViewModel() {
+class ReporteViewModel(
+    private val repository: ReporteRepository = ReporteRepository()
+) : ViewModel() {
 
-    private val repository =
-        ReporteRepository()
-
-    var uiState by mutableStateOf(
-        ReporteUiState(
-            idMunicipio = 1,
-            idCatalogoActividad = 1,
-            latitud = 0.0,
-            longitud = 0.0,
-            aceptoAviso = true
-        )
-    )
+    var uiState by mutableStateOf(ReporteUiState())
         private set
 
-
-    fun actualizarCantidad(
-        cantidad: String
-    ) {
-        uiState = uiState.copy(
-            cantidadSeleccionada = cantidad
-        )
-    }
-
-    fun actualizarEdad(
-        edad: String
-    ) {
-        uiState = uiState.copy(
-            edadSeleccionada = edad
-        )
-    }
-
-    fun actualizarGenero(
-        genero: String
-    ) {
-        uiState = uiState.copy(
-            generoSeleccionado = genero
-        )
-    }
-
-    fun actualizarActividad(
-        actividad: String
-    ) {
-        uiState = uiState.copy(
-            actividadSeleccionada = actividad
-        )
-    }
-
-    fun actualizarHora(
-        hora: String
-    ) {
-        uiState = uiState.copy(
-            actividadSeleccionada = hora
-        )
-    }
-
-    fun actualizarRiesgo(
-        riesgoo: String
-    ) {
-        uiState = uiState.copy(
-            riesgo = riesgoo
-        )
-    }
-
-    fun actualizarDescripcion(
-        descripcion: String
-    ) {
-        uiState = uiState.copy(
-            descripcion = descripcion
-        )
-    }
-
-    fun actualizarCorreo(
-        correo: String
-    ) {
-        uiState = uiState.copy(
-            correo = correo
-        )
-    }
-
-    fun actualizarFolio(
-        valor: String
-    ) {
-        uiState =
-            uiState.copy(
-                folio = valor
-            )
-    }
-
-    fun actualizarEstatus(
-        valor: String
-    ) {
-        uiState =
-            uiState.copy(
-                estatus = valor
-            )
-    }
-
-    fun actualizarUbicacion(
-        latitud: Double,
-        longitud: Double,
-        direccion: String
-    ) {
-
-        uiState = uiState.copy(
-            latitud = latitud,
-            longitud = longitud,
-            direccion = direccion
-        )
+    fun updateState(transform: (ReporteUiState) -> ReporteUiState) {
+        uiState = transform(uiState)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun enviarReporte(
-        onSuccess: () -> Unit
-    ) {
-
+    fun enviarReporteConEvidencias(context: Context, onSuccess: () -> Unit) {
         viewModelScope.launch {
+            uiState = uiState.copy(isLoading = true, error = null)
 
-            val request = construirRequest()
+            try {
+                // 1. Enviar datos del reporte
+                val request = construirRequest()
+                val respuestaReporte = repository.crearReporte(request)
 
-            val respuesta =
-                repository.crearReporte(request)
+                if (respuestaReporte.isSuccessful && respuestaReporte.body() != null) {
+                    val body = respuestaReporte.body()!!
+                    val folioGenerado = body.folio
 
-            respuesta.body()?.let {
+                    uiState = uiState.copy(
+                        folio = folioGenerado,
+                        estatus = body.estatus
+                    )
 
+                    // 2. Enviar evidencias/fotografías si existen
+                    if (uiState.fotosUris.isNotEmpty()) {
+                        for (fotoUri in uiState.fotosUris) {
+                            repository.subirFotoEvidencia(context, folioGenerado, fotoUri)
+                        }
+                    }
+
+                    uiState = uiState.copy(isLoading = false)
+                    onSuccess()
+
+                } else {
+                    uiState = uiState.copy(
+                        isLoading = false,
+                        error = "Error al crear el reporte: ${respuestaReporte.code()}"
+                    )
+                }
+            } catch (e: Exception) {
                 uiState = uiState.copy(
-                    folio = it.folio,
-                    estatus = it.estatus
+                    isLoading = false,
+                    error = e.localizedMessage ?: "Error en la transmisión"
                 )
-
-                onSuccess()
             }
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun construirRequest(): ReporteRequest {
-
         return ReporteRequest(
-
             idMunicipio = uiState.idMunicipio,
-
             idCatalogoActividad = uiState.idCatalogoActividad,
-
             modalidad = uiState.modalidad,
-
-            correo_contacto =
-                if (uiState.modalidad == "ANONIMO")
-                    null
-                else
-                    uiState.correo.ifBlank { null },
-
-            num_menores =
-                uiState.cantidadSeleccionada
-                    .toIntOrNull()
-                    ?: 1,
-
-            rango_edad =
-                uiState.edadSeleccionada.ifBlank {
-                    "No especificado"
-                },
-
-            genero_observado =
-                uiState.generoSeleccionado.ifBlank {
-                    "No especificado"
-                },
-
-            hora_observada =
-                uiState.hora.ifBlank {
-                    java.time.LocalTime.now()
-                        .withNano(0)
-                        .toString()
-                },
-
+            correo_contacto = if (uiState.modalidad == "ANONIMO") null else uiState.correo.ifBlank { null },
+            num_menores = uiState.cantidadSeleccionada.toIntOrNull() ?: 1,
+            rango_edad = uiState.edadSeleccionada.ifBlank { "No especificado" },
+            genero_observado = uiState.generoSeleccionado.ifBlank { "No especificado" },
+            hora_observada = uiState.hora.ifBlank { java.time.LocalTime.now().withNano(0).toString() },
             descripcion = uiState.descripcion,
-
-            situacion_riesgo =
-                uiState.riesgo == "Sí",
-
+            situacion_riesgo = uiState.riesgo == "Sí",
             latitud = uiState.latitud,
-
             longitud = uiState.longitud,
-
-            calle =
-                uiState.calle.ifBlank {
-                    "No especificada"
-                },
-
-            colonia =
-                uiState.colonia.ifBlank {
-                    "No especificada"
-                },
-
-            cp =
-                uiState.cp.ifBlank {
-                    null
-                },
-
-            referencias =
-                uiState.referencias.ifBlank {
-                    null
-                },
-
-            acepto_aviso = true
+            calle = uiState.calle.ifBlank { "No especificada" },
+            colonia = uiState.colonia.ifBlank { "No especificada" },
+            cp = uiState.cp.ifBlank { null },
+            referencias = uiState.referencias.ifBlank { null },
+            acepto_aviso = uiState.aceptoAviso
         )
     }
 }

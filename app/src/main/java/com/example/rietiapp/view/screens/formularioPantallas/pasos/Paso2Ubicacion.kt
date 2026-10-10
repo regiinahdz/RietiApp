@@ -42,7 +42,7 @@ fun Paso2Ubicacion(
     onFotosChange: (List<Uri>) -> Unit,
     modifier: Modifier = Modifier,
     ubicacionDireccion: String = "",
-    onUbicacionChange: (String) -> Unit = {}
+    onUbicacionChange: (latitud: Double, longitud: Double, direccion: String) -> Unit = { _, _, _ -> }
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -53,11 +53,15 @@ fun Paso2Ubicacion(
     val seleccionarUbicacion: (GeoPoint) -> Unit = { geoPoint ->
         selectedPoint = geoPoint
         estaCargandoDireccion = true
-        onUbicacionChange("Buscando dirección...")
+
+        // Notificamos las coordenadas inmediatamente
+        onUbicacionChange(geoPoint.latitude, geoPoint.longitude, "Buscando dirección...")
+
         coroutineScope.launch {
             val direccion = obtenerDireccion(context, geoPoint)
             estaCargandoDireccion = false
-            onUbicacionChange(direccion)
+            // Notificamos las coordenadas junto con la dirección final
+            onUbicacionChange(geoPoint.latitude, geoPoint.longitude, direccion)
         }
     }
 

@@ -1,5 +1,7 @@
 package com.example.rietiapp.viewmodel
 
+import android.net.Uri
+
 data class ReporteUiState(
 
     // Tipo de reporte
@@ -39,5 +41,10 @@ data class ReporteUiState(
 
     // Respuesta backend
     val folio: String = "",
-    val estatus: String = ""
+    val estatus: String = "",
+
+    // --- AGREGAR ESTOS CAMPOS FALTANTES ---
+    val fotosUris: List<Uri> = emptyList(),
+    val isLoading: Boolean = false,
+    val error: String? = null
 )

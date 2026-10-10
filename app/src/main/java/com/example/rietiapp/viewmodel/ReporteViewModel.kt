@@ -68,6 +68,14 @@ class ReporteViewModel : ViewModel() {
         )
     }
 
+    fun actualizarRiesgo(
+        riesgoo: String
+    ) {
+        uiState = uiState.copy(
+            riesgo = riesgoo
+        )
+    }
+
     fun actualizarDescripcion(
         descripcion: String
     ) {

@@ -10,7 +10,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.rietiapp"
+        applicationId = "mx.rocc.rietiapp"
         minSdk = 24
         targetSdk = 37
         versionCode = 1

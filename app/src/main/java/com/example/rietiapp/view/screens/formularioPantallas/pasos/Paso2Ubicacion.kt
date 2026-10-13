@@ -65,7 +65,7 @@ fun Paso2Ubicacion(
         }
     }
 
-    Card(
+    Column(
         modifier = modifier.fillMaxWidth()
     ) {
         Column(

@@ -17,6 +17,9 @@ import com.example.rietiapp.ui.theme.RietiAppTheme
 import com.example.rietiapp.view.navigation.AppNavigation
 import org.osmdroid.config.Configuration
 
+/***
+ * @author
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

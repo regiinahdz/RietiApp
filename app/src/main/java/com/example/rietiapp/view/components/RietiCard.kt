@@ -1,3 +1,9 @@
+/**
+ * Tarjeta de contenedor con estilo de diseño neumórfico/claymorfismo.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.components
 
 import androidx.compose.foundation.layout.Box
@@ -11,6 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.rietiapp.ui.theme.clay
 
+/**
+ * Contenedor de tarjeta genérico con bordes redondeados y efecto claymorfismo.
+ *
+ * @param modifier Modificador composable para personalizar el layout.
+ * @param backgroundColor Color de fondo del contenedor.
+ * @param content Contenido composable interno.
+ */
 @Composable
 fun RietiCard(
     modifier: Modifier = Modifier,

@@ -1,3 +1,9 @@
+/**
+ * Pantalla de confirmación tras el envío exitoso de un reporte.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.screens.formularioPantallas
 
 import android.content.Intent
@@ -25,6 +31,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rietiapp.viewmodel.ReporteViewModel
 
+/**
+ * Muestra el mensaje de éxito y el folio de seguimiento generado para el usuario.
+ *
+ * @param viewModel Instancia de [ReporteViewModel] que contiene el folio generado.
+ * @param onInicioClick Callback para retornar al inicio.
+ */
 @Composable
 fun ConfirmacionScreen(
     viewModel: ReporteViewModel,
@@ -46,7 +58,7 @@ fun ConfirmacionScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            
+
             Box(
                 modifier = Modifier
                     .size(100.dp)
@@ -80,10 +92,9 @@ fun ConfirmacionScreen(
                 textAlign = TextAlign.Center,
                 lineHeight = 24.sp
             )
-            
+
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Tarjeta de Folio Neumórfica
             Card(
                 modifier = Modifier
                     .fillMaxWidth()

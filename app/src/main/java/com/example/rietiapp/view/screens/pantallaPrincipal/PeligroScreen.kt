@@ -1,3 +1,9 @@
+/**
+ * Pantalla de aviso de emergencia y comunicación con el C5 (911).
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.screens.pantallaPrincipal
 
 import android.content.Intent
@@ -13,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -21,6 +26,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 
+/**
+ * Muestra las instrucciones de peligro inminente y la llamada directa al 911.
+ *
+ * @param onBackClick Callback para regresar a la pantalla previa.
+ */
 @Composable
 fun PeligroScreen(
     onBackClick: () -> Unit
@@ -30,8 +40,7 @@ fun PeligroScreen(
 
     Box(modifier = Modifier.fillMaxSize().background(bgColor)) {
         Column(modifier = Modifier.fillMaxSize()) {
-            
-            // Header
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -47,7 +56,6 @@ fun PeligroScreen(
                 }
             }
 
-            // Contenedor principal
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -61,7 +69,6 @@ fun PeligroScreen(
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Drag Handle
                     Box(
                         modifier = Modifier
                             .width(48.dp)
@@ -71,7 +78,7 @@ fun PeligroScreen(
                     )
 
                     Spacer(modifier = Modifier.height(32.dp))
-                    
+
                     Box(
                         modifier = Modifier
                             .size(80.dp)

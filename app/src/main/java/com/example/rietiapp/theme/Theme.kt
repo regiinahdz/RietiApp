@@ -1,3 +1,9 @@
+/**
+ * Configuración del tema general de Material Design 3 de la aplicación.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.ui.theme
 
 import android.os.Build
@@ -66,6 +72,13 @@ private val darkScheme = darkColorScheme(
     scrim = scrimDark
 )
 
+/**
+ * Tema principal [RietiAppTheme] que envuelve la jerarquía de UI Compose.
+ *
+ * @param darkTheme Determina si debe utilizarse la paleta oscura.
+ * @param dynamicColor Indica si se permite color dinámico según la versión de Android.
+ * @param content Contenido composable envuelto por el tema.
+ */
 @Composable
 fun RietiAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

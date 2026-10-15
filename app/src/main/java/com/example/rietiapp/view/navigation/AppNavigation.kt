@@ -1,7 +1,11 @@
+/**
+ * Grafo y host de navegación principal de la aplicación.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -18,7 +22,9 @@ import com.example.rietiapp.view.screens.seguimientoReportes.SeguimientoScreen
 import com.example.rietiapp.viewmodel.ReporteViewModel
 import com.example.rietiapp.viewmodel.SeguimientoViewModel
 
-@RequiresApi(Build.VERSION_CODES.O)
+/**
+ * Componente principal de orquestación de pantallas mediante Jetpack Navigation Compose.
+ */
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()

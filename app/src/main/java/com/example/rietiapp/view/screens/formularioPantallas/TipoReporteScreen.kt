@@ -1,3 +1,9 @@
+/**
+ * Pantalla para seleccionar la modalidad del reporte (Anónimo o con Seguimiento por correo).
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.screens.formularioPantallas
 
 import androidx.compose.foundation.background
@@ -16,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,6 +29,13 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.rietiapp.viewmodel.ReporteViewModel
 
+/**
+ * Pantalla que permite al usuario decidir entre un reporte anónimo o con correo de contacto.
+ *
+ * @param viewModel ViewModel de reportes para gestionar el estado.
+ * @param onContinuarClick Callback ejecutado al presionar continuar.
+ * @param onBackClick Callback para regresar a la pantalla anterior.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TipoReporteScreen(
@@ -50,7 +62,6 @@ fun TipoReporteScreen(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            // Header Custom
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -92,7 +103,6 @@ fun TipoReporteScreen(
 
                     Spacer(modifier = Modifier.weight(1f))
 
-                    // Opción Anónimo
                     ModernSelectableCard(
                         title = "Reporte anónimo",
                         subtitle = "No se solicitarán datos de contacto.",
@@ -102,7 +112,6 @@ fun TipoReporteScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Opción Seguimiento
                     ModernSelectableCard(
                         title = "Reporte con seguimiento",
                         subtitle = "Recibe actualizaciones por correo.",
@@ -112,7 +121,6 @@ fun TipoReporteScreen(
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    // Campo de correo
                     if (seleccion == "seguimiento") {
                         val correoInvalido = correo.isNotBlank() && !esCorreoValido(correo)
                         Text(
@@ -186,10 +194,17 @@ fun TipoReporteScreen(
     }
 }
 
+/**
+ * Tarjeta de selección estilizada para las opciones de modalidad de reporte.
+ *
+ * @param title Título principal de la tarjeta.
+ * @param subtitle Subtítulo explícito.
+ * @param selected Indicador de estado seleccionado.
+ * @param onClick Callback invocado al seleccionar.
+ */
 @Composable
 fun ModernSelectableCard(title: String, subtitle: String, selected: Boolean, onClick: () -> Unit) {
     val bgColor = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface
-    val borderColor = if (selected) MaterialTheme.colorScheme.primary else Color.Transparent
     val shadowColor = if (selected) MaterialTheme.colorScheme.primary.copy(alpha = 0.5f) else Color.Black.copy(alpha = 0.3f)
 
     Row(
@@ -216,6 +231,12 @@ fun ModernSelectableCard(title: String, subtitle: String, selected: Boolean, onC
     }
 }
 
+/**
+ * Valida si la cadena ingresada corresponde a una dirección de correo electrónico válida.
+ *
+ * @param correo Cadena con el correo a evaluar.
+ * @return `true` si es un formato válido de correo, `false` de lo contrario.
+ */
 fun esCorreoValido(correo: String): Boolean {
     return correo.isNotBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(correo.trim()).matches()
 }

@@ -1,3 +1,9 @@
+/**
+ * Modificador composable de estilos visuales para efectos Claymorphic.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.ui.theme
 
 import androidx.compose.ui.Modifier
@@ -15,13 +21,18 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
- * Modificador personalizado para aplicar el efecto Claymorphism real,
- * basado en el estilo flotante 3D (inflado + sobras profundas).
+ * Aplica el efecto visual de Claymorphism con sombras interiores y exteriores infladas 3D.
+ *
+ * @param backgroundColor Color de fondo del elemento.
+ * @param cornerRadius Radio de curvatura de los bordes.
+ * @param elevation Elevación de la sombra.
+ * @param pressed Indicador del estado presionado/hundido.
+ * @return Instancia modificada de [Modifier].
  */
 fun Modifier.clay(
     backgroundColor: Color,
-    cornerRadius: Dp = 32.dp, // Mucho más redondeado por defecto
-    elevation: Dp = 16.dp, // Sombras exteriores más amplias
+    cornerRadius: Dp = 32.dp,
+    elevation: Dp = 16.dp,
     pressed: Boolean = false
 ) = this.composed {
     this.drawBehind {
@@ -33,15 +44,13 @@ fun Modifier.clay(
             val frameworkPaint = paint.asFrameworkPaint()
             frameworkPaint.isAntiAlias = true
 
-            // 1. Sombras Exteriores (Drop Shadows)
             if (!pressed) {
-                // Sombra oscura y profunda abajo a la derecha (Da sensación de flotar)
                 frameworkPaint.color = backgroundColor.toArgb()
                 frameworkPaint.setShadowLayer(
                     elevationPx * 1.2f,
                     elevationPx / 1.5f,
                     elevationPx / 1.5f,
-                    android.graphics.Color.argb(30, 0, 0, 0) // Sombra suave pero notable
+                    android.graphics.Color.argb(30, 0, 0, 0)
                 )
                 canvas.drawRoundRect(
                     0f, 0f, size.width, size.height,
@@ -49,7 +58,6 @@ fun Modifier.clay(
                 )
             }
 
-            // 2. Dibujar la forma sólida principal
             frameworkPaint.clearShadowLayer()
             frameworkPaint.color = backgroundColor.toArgb()
             canvas.drawRoundRect(
@@ -57,7 +65,6 @@ fun Modifier.clay(
                 cornerRadiusPx, cornerRadiusPx, paint
             )
 
-            // Preparar el path de recorte para las sombras/brillos interiores
             val path = Path().apply {
                 addRoundRect(
                     RoundRect(
@@ -70,38 +77,34 @@ fun Modifier.clay(
                 )
             }
 
-            // 3. Sombras Interiores (Inner Shadows) - El corazón del Claymorphism
             clipPath(path) {
                 frameworkPaint.style = android.graphics.Paint.Style.STROKE
-                frameworkPaint.strokeWidth = elevationPx * 1.5f // Trazo grueso para el inner shadow
+                frameworkPaint.strokeWidth = elevationPx * 1.5f
                 frameworkPaint.color = android.graphics.Color.TRANSPARENT
 
                 if (!pressed) {
-                    // a) Sombra oscura interior abajo-derecha (Efecto inflado 3D)
                     frameworkPaint.setShadowLayer(
                         elevationPx * 0.8f,
                         -elevationPx / 3,
                         -elevationPx / 3,
-                        android.graphics.Color.argb(30, 0, 0, 0) // Sombra oscura muy sutil
+                        android.graphics.Color.argb(30, 0, 0, 0)
                     )
                     canvas.drawRoundRect(
                         0f, 0f, size.width, size.height,
                         cornerRadiusPx, cornerRadiusPx, paint
                     )
 
-                    // b) Brillo intenso interior arriba-izquierda (Luz incidiendo)
                     frameworkPaint.setShadowLayer(
                         elevationPx * 1.2f,
                         elevationPx / 3,
                         elevationPx / 3,
-                        android.graphics.Color.argb(200, 255, 255, 255) // Blanco muy brillante
+                        android.graphics.Color.argb(200, 255, 255, 255)
                     )
                     canvas.drawRoundRect(
                         0f, 0f, size.width, size.height,
                         cornerRadiusPx, cornerRadiusPx, paint
                     )
                 } else {
-                    // Estado Presionado (Hundido)
                     frameworkPaint.setShadowLayer(
                         elevationPx,
                         elevationPx / 2,

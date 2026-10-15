@@ -1,16 +1,16 @@
-#Wed Oct 14 12:17:24 CST 2026
-base.0=C\:\\Users\\ovedc\\AndroidStudioProjects\\RietiApp - copia\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Users\\ovedc\\AndroidStudioProjects\\RietiApp - copia\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.10=C\:\\Users\\ovedc\\AndroidStudioProjects\\RietiApp - copia\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
-base.11=C\:\\Users\\ovedc\\AndroidStudioProjects\\RietiApp - copia\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
-base.2=C\:\\Users\\ovedc\\AndroidStudioProjects\\RietiApp - copia\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\12\\classes.dex
-base.3=C\:\\Users\\ovedc\\AndroidStudioProjects\\RietiApp - copia\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
-base.4=C\:\\Users\\ovedc\\AndroidStudioProjects\\RietiApp - copia\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
-base.5=C\:\\Users\\ovedc\\AndroidStudioProjects\\RietiApp - copia\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
-base.6=C\:\\Users\\ovedc\\AndroidStudioProjects\\RietiApp - copia\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\3\\classes.dex
-base.7=C\:\\Users\\ovedc\\AndroidStudioProjects\\RietiApp - copia\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\8\\classes.dex
-base.8=C\:\\Users\\ovedc\\AndroidStudioProjects\\RietiApp - copia\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\9\\classes.dex
-base.9=C\:\\Users\\ovedc\\AndroidStudioProjects\\RietiApp - copia\\app\\build\\intermediates\\global_synthetics_dex\\debug\\generateDebugGlobalSynthetics\\classes.dex
+#Wed Oct 14 12:38:50 CST 2026
+base.0=D\:\\DOCUMENTOS\\tec\\5TO\\RIETIapp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=D\:\\DOCUMENTOS\\tec\\5TO\\RIETIapp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.10=D\:\\DOCUMENTOS\\tec\\5TO\\RIETIapp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.11=D\:\\DOCUMENTOS\\tec\\5TO\\RIETIapp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
+base.2=D\:\\DOCUMENTOS\\tec\\5TO\\RIETIapp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\12\\classes.dex
+base.3=D\:\\DOCUMENTOS\\tec\\5TO\\RIETIapp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
+base.4=D\:\\DOCUMENTOS\\tec\\5TO\\RIETIapp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.5=D\:\\DOCUMENTOS\\tec\\5TO\\RIETIapp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
+base.6=D\:\\DOCUMENTOS\\tec\\5TO\\RIETIapp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\3\\classes.dex
+base.7=D\:\\DOCUMENTOS\\tec\\5TO\\RIETIapp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\8\\classes.dex
+base.8=D\:\\DOCUMENTOS\\tec\\5TO\\RIETIapp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\9\\classes.dex
+base.9=D\:\\DOCUMENTOS\\tec\\5TO\\RIETIapp\\app\\build\\intermediates\\global_synthetics_dex\\debug\\generateDebugGlobalSynthetics\\classes.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.10=classes2.dex

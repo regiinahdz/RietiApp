@@ -3,34 +3,37 @@ package com.example.rietiapp.model.datos
 import android.net.Uri
 
 /**
- * Modelo inmutable de estado UI que contiene la información completa del formulario de reporte de incidencias.
+ * Estado UI inmutable que consolida los datos del formulario de reporte de incidencias.
  *
- * @property modalidad Tipo de reporte ("ANONIMO" o "SEGUIMIENTO").
- * @property correo Correo de contacto opcional para seguimiento.
- * @property idMunicipio Identificador numérico del municipio asignado.
- * @property idCatalogoActividad Identificador numérico de la actividad seleccionada.
- * @property cantidadSeleccionada Cantidad observada de niñas, niños o adolescentes.
- * @property edadSeleccionada Rango de edad observado.
+ * @property modalidad Modalidad del reporte ("ANONIMO" o "SEGUIMIENTO").
+ * @property correo Correo de contacto opcional.
+ * @property idMunicipio ID del municipio asignado.
+ * @property idCatalogoActividad ID de la actividad en el catálogo.
+ * @property cantidadSeleccionada Cantidad de menores observada.
+ * @property edadSeleccionada Rango de edad seleccionado.
  * @property generoSeleccionado Género observado.
- * @property actividadSeleccionada Descripción de la actividad realizada.
- * @property hora Hora aproximada de los hechos observados.
- * @property descripcion Descripción detallada introducida por el usuario.
- * @property riesgo Indicación de situación de riesgo ("Sí", "No", "No se").
- * @property latitud Coordenada de latitud seleccionada en el mapa.
- * @property longitud Coordenada de longitud seleccionada en el mapa.
- * @property direccion Dirección textual correspondiente a las coordenadas GPS.
- * @property calle Calle principal de la ubicación.
- * @property colonia Colonia o vecindario.
+ * @property actividadSeleccionada Actividad descrita.
+ * @property hora Hora aproximada.
+ * @property descripcion Texto explicativo detallado.
+ * @property riesgo Estado de riesgo ("Sí", "No", "No se").
+ * @property latitud Coordenada GPS de latitud.
+ * @property longitud Coordenada GPS de longitud.
+ * @property direccion Dirección textual resultante de geocodificación.
+ * @property calle Calle de la ubicación.
+ * @property colonia Colonia o zona.
  * @property cp Código postal.
- * @property referencias Referencias adicionales del lugar.
- * @property aceptoAviso Indicador de aceptación del aviso de privacidad.
- * @property folio Folio asignado al reporte por la API.
- * @property estatus Estado del reporte devuelto por el servidor.
- * @property fotosUris Lista de [Uri]s locales de fotos adjuntas como evidencia.
- * @property isLoading Muestra el estado de carga al enviar datos a la API.
- * @property error Mensaje de error para mostrar en la interfaz si ocurre un fallo.
- * @property isSending Indicador de estado de envío en proceso.
- * @property folioGenerado Folio devuelto tras la creación exitosa en el backend.
+ * @property referencias Referencias del lugar.
+ * @property aceptoAviso Estado de aceptación del aviso de privacidad.
+ * @property folio Folio retornado por el servidor.
+ * @property estatus Estatus del reporte.
+ * @property fotosUris Lista de imágenes locales adjuntas.
+ * @property isLoading Indicador de carga de peticiones HTTP.
+ * @property error Mensaje descriptivo si ocurre un fallo.
+ * @property isSending Indicador de envío en progreso.
+ * @property folioGenerado Folio asignado.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
  */
 data class ReporteUiState(
     val modalidad: String = "ANONIMO",

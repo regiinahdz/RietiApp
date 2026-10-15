@@ -1,5 +1,14 @@
+/**
+ * Constantes de rutas para la navegación de la aplicación RIETI.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.navigation
 
+/**
+ * Objeto central de constantes para los destinos del grafo de navegación Compose.
+ */
 object Routes {
     const val HOME = "home"
     const val TIPO_REPORTE = "tipo_reporte"

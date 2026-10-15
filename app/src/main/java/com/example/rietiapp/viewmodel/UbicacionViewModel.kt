@@ -21,11 +21,27 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.util.Locale
 
+/**
+ * ViewModel que controla la lógica de geolocalización, obtención de GPS y resolución de direcciones.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 class UbicacionViewModel : ViewModel() {
 
+    /**
+     * Estado observable de los datos de ubicación seleccionados.
+     */
     var estadoUbicacion by mutableStateOf(UbicacionData())
         private set
 
+    /**
+     * Actualiza el punto de ubicación geográfica e inicia la resolución asíncrona de dirección.
+     *
+     * @param context Contexto de la aplicación.
+     * @param geoPoint Punto [GeoPoint] seleccionado.
+     * @param onUbicacionChange Callback invocado al completar la resolución de datos.
+     */
     fun seleccionarUbicacion(
         context: Context,
         geoPoint: GeoPoint,
@@ -48,6 +64,12 @@ class UbicacionViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Solicita la posición GPS actual del dispositivo si se cuentan con los permisos requeridos.
+     *
+     * @param context Contexto de la aplicación.
+     * @param onUbicacionChange Callback invocado con los resultados de ubicación.
+     */
     fun solicitarUbicacionActual(
         context: Context,
         onUbicacionChange: (lat: Double, lng: Double, dir: String, municipio: String) -> Unit = { _, _, _, _ -> }
@@ -57,6 +79,12 @@ class UbicacionViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Obtiene las coordenadas GPS actuales del sensor del dispositivo.
+     *
+     * @param context Contexto del sistema.
+     * @param onUbicacionObtenida Callback ejecutado con las coordenadas [GeoPoint].
+     */
     private fun obtenerPosicionGps(
         context: Context,
         onUbicacionObtenida: (GeoPoint) -> Unit
@@ -92,6 +120,13 @@ class UbicacionViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Resuelve la dirección textual y el municipio utilizando Geocoder con fallback a la API de Nominatim.
+     *
+     * @param context Contexto del sistema.
+     * @param geoPoint Coordenadas [GeoPoint] a consultar.
+     * @return Par conteniendo la dirección resuelta y el nombre del municipio.
+     */
     private suspend fun obtenerDireccionYMunicipio(
         context: Context,
         geoPoint: GeoPoint
@@ -99,7 +134,6 @@ class UbicacionViewModel : ViewModel() {
         var direccionFinal = "Latitud: %.4f, Longitud: %.4f".format(geoPoint.latitude, geoPoint.longitude)
         var municipioFinal = ""
 
-        // 1. Geocoder oficial de Android
         try {
             val geocoder = Geocoder(context, Locale.getDefault())
             @Suppress("DEPRECATION")
@@ -128,7 +162,6 @@ class UbicacionViewModel : ViewModel() {
             }
         } catch (_: Exception) {}
 
-        // 2. Fallback Nominatim API
         try {
             val urlString = "https://nominatim.openstreetmap.org/reverse?format=json&lat=${geoPoint.latitude}&lon=${geoPoint.longitude}"
             val url = URL(urlString)

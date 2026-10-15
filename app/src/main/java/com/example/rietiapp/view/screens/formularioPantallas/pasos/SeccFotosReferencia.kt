@@ -1,3 +1,9 @@
+/**
+ * Sección para adjuntar fotografías de evidencia del lugar de los hechos.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.screens.formularioPantallas.pasos
 
 import android.net.Uri
@@ -20,6 +26,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 
+/**
+ * Componente que permite seleccionar hasta 2 imágenes de la galería para adjuntarlas al reporte.
+ *
+ * @param fotosUris Lista de imágenes actualmente seleccionadas.
+ * @param onFotosChange Callback invocado al modificar la selección de imágenes.
+ * @param modifier Modificador composable opcional.
+ * @param maxFotos Número máximo de fotografías permitidas.
+ */
 @Composable
 fun SeccFotosReferencia(
     fotosUris: List<Uri>,
@@ -44,7 +58,6 @@ fun SeccFotosReferencia(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Banner explicativo sobre dignidad e integridad
         Surface(
             color = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f),
             shape = RoundedCornerShape(8.dp),
@@ -79,7 +92,6 @@ fun SeccFotosReferencia(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Miniaturas y botón de adjuntar
         Row(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically

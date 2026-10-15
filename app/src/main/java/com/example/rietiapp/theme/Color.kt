@@ -1,10 +1,15 @@
+/**
+ * Paleta de colores para temas claro y oscuro de la aplicación RIETI.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// --- MODO CLARO (Light Theme) ---
-val primaryLight = Color(0xFF6748D8)        // Morado vibrante para resaltar botones y elementos principales
-val onPrimaryLight = Color(0xFFFFFFFF)      // Texto blanco de alto contraste sobre morado
+val primaryLight = Color(0xFF6748D8)
+val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFFEEDCFF)
 val onPrimaryContainerLight = Color(0xFF270057)
 
@@ -23,9 +28,9 @@ val onErrorLight = Color(0xFFFFFFFF)
 val errorContainerLight = Color(0xFFFFDAD6)
 val onErrorContainerLight = Color(0xFF93000A)
 
-val backgroundLight = Color(0xFFFDF7FF)     // Fondo claro estilizado
-val onBackgroundLight = Color(0xFF1C1B1E)   // Texto oscuro principal
-val surfaceLight = Color(0xFFFFFFFF)        // Tarjetas blanco puro en modo claro
+val backgroundLight = Color(0xFFFDF7FF)
+val onBackgroundLight = Color(0xFF1C1B1E)
+val surfaceLight = Color(0xFFFFFFFF)
 val onSurfaceLight = Color(0xFF1C1B1E)
 val surfaceVariantLight = Color(0xFFF3EDF7)
 val onSurfaceVariantLight = Color(0xFF49454E)
@@ -34,9 +39,8 @@ val outlineLight = Color(0xFF7A757F)
 val outlineVariantLight = Color(0xFFCAC4CF)
 val scrimLight = Color(0xFF000000)
 
-// --- MODO OSCURO (Dark Theme) ---
-val primaryDark = Color(0xFF7E60FF)         // Morado iluminado e intenso que resalta sobre fondo oscuro
-val onPrimaryDark = Color(0xFFFFFFFF)       // Texto blanco claro y bien legible
+val primaryDark = Color(0xFF7E60FF)
+val onPrimaryDark = Color(0xFFFFFFFF)
 val primaryContainerDark = Color(0xFF2B2B36)
 val onPrimaryContainerDark = Color(0xFFEEDCFF)
 
@@ -55,11 +59,11 @@ val onErrorDark = Color(0xFF690005)
 val errorContainerDark = Color(0xFF93000A)
 val onErrorContainerDark = Color(0xFFFFB4AB)
 
-val backgroundDark = Color(0xFF141218)      // Fondo noche elegante
+val backgroundDark = Color(0xFF141218)
 val onBackgroundDark = Color(0xFFE6E0E8)
-val surfaceDark = Color(0xFF22202A)         // Tarjetas oscuras claramente diferenciadas del fondo
+val surfaceDark = Color(0xFF22202A)
 val onSurfaceDark = Color(0xFFE6E0E8)
-val surfaceVariantDark = Color(0xFF2B2835)  // Variante ligeramente más clara
+val surfaceVariantDark = Color(0xFF2B2835)
 val onSurfaceVariantDark = Color(0xFFCAC4CF)
 
 val outlineDark = Color(0xFF948F99)

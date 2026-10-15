@@ -17,14 +17,20 @@ import com.example.rietiapp.ui.theme.RietiAppTheme
 import com.example.rietiapp.view.navigation.AppNavigation
 import org.osmdroid.config.Configuration
 
-/***
- * @author
+/**
+ * Actividad principal y punto de entrada de la aplicación RIETI.
+ *
+ * Configura la integración con osmdroid para mapas, habilita el diseño edge-to-edge
+ * e inicializa la jerarquía de UI Compose mediante [AppNavigation].
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
  */
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Limpiar caché anterior de tiles bloqueados
         try {
             cacheDir.resolve("osmdroid").deleteRecursively()
             filesDir.resolve("osmdroid").deleteRecursively()

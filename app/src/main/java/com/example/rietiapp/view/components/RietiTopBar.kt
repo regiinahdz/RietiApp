@@ -1,3 +1,9 @@
+/**
+ * Barra superior de navegación superior para las pantallas de la aplicación.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.components
 
 import androidx.compose.material.icons.Icons
@@ -14,6 +20,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
+/**
+ * TopAppBar personalizada con soporte para botón de navegación hacia atrás e íconos de acción.
+ *
+ * @param mostrarAtras `true` si debe mostrar el botón de regreso, `false` de lo contrario.
+ * @param onBackClick Callback invocado al presionar la flecha de regreso.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RietiTopBar(
@@ -21,11 +33,9 @@ fun RietiTopBar(
     onBackClick: () -> Unit
 ) {
     TopAppBar(
-        title = { 
-            // Título vacío para que luzca minimalista como en la imagen
-        },
+        title = { },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Transparent, // Fondo transparente
+            containerColor = Color.Transparent,
             navigationIconContentColor = MaterialTheme.colorScheme.onSurface,
             actionIconContentColor = MaterialTheme.colorScheme.onSurface
         ),
@@ -41,16 +51,14 @@ fun RietiTopBar(
         },
         actions = {
             if (mostrarAtras) {
-                // Icono de 3 puntos (MoreVert) de ejemplo para igualar la imagen
-                IconButton(onClick = { /* TODO: Opciones */ }) {
+                IconButton(onClick = { }) {
                     Icon(
                         imageVector = Icons.Default.MoreVert,
                         contentDescription = "Opciones"
                     )
                 }
             } else {
-                // Icono de perfil de ejemplo para la pantalla principal
-                IconButton(onClick = { /* TODO: Perfil */ }) {
+                IconButton(onClick = { }) {
                     Icon(
                         imageVector = Icons.Default.Person,
                         contentDescription = "Perfil"

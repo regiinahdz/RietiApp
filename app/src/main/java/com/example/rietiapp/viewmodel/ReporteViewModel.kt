@@ -3,7 +3,6 @@ package com.example.rietiapp.viewmodel
 import android.content.Context
 import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,13 +17,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.Normalizer
+import java.util.Calendar
+import java.util.Locale
 
 /**
  * ViewModel encargado de la lógica de negocio y gestión de estado UI durante la creación de reportes.
+ *
  * Administra el catálogo de municipios, geocodificación inversa, estados de los pasos e integración
  * con el repositorio [ReporteRepository] para el envío de formularios y evidencias.
  *
  * @property repository Instancia de [ReporteRepository] para la comunicación con la API.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
  */
 class ReporteViewModel(
     private val repository: ReporteRepository = ReporteRepository()
@@ -137,7 +142,7 @@ class ReporteViewModel(
     }
 
     /**
-     * Remueve acentos, diacríticos y convierte a minúsculas una cadena de texto para facilitar comparaciones.
+     * Remueve acentos, diacríticos y convierte a minúsculas una cadena de texto.
      *
      * @param texto Cadena original.
      * @return Cadena de texto normalizada.
@@ -170,12 +175,11 @@ class ReporteViewModel(
     }
 
     /**
-     * Procesa y envía el reporte completo junto con sus archivos de evidencia fotográfica si existen.
+     * Procesa y envía el reporte completo junto con sus archivos de evidencia fotográfica.
      *
      * @param context Contexto necesario para acceder a los recursos de archivos.
      * @param onSuccess Callback ejecutado al completar exitosamente la transacción.
      */
-    @RequiresApi(Build.VERSION_CODES.O)
     fun enviarReporteConEvidencias(context: Context, onSuccess: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
@@ -241,10 +245,14 @@ class ReporteViewModel(
      *
      * @return Instancia configurada de [ReporteRequest].
      */
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun construirRequest(): ReporteRequest {
         var horaFormateada = uiState.hora.ifBlank {
-            java.time.LocalTime.now().withNano(0).toString()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                java.time.LocalTime.now().withNano(0).toString()
+            } else {
+                val cal = Calendar.getInstance()
+                String.format(Locale.US, "%02d:%02d:00", cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE))
+            }
         }
         if (horaFormateada.length == 5) {
             horaFormateada += ":00"

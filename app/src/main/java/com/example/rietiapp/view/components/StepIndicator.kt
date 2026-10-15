@@ -1,3 +1,9 @@
+/**
+ * Indicador de pasos para flujos de formularios.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.components
 
 import androidx.compose.foundation.layout.Arrangement
@@ -8,6 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
+/**
+ * Componente visual que despliega las etiquetas de avance del formulario secuencial.
+ *
+ * @param pasoActual Índice del paso actual en el formulario (0, 1 o 2).
+ */
 @Composable
 fun StepIndicator(
     pasoActual: Int

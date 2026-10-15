@@ -1,3 +1,9 @@
+/**
+ * Componentes de interfaz de usuario reutilizables para la plataforma RIETI.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.components
 
 import androidx.compose.foundation.clickable
@@ -20,6 +26,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.rietiapp.ui.theme.clay
 
+/**
+ * Botón personalizado con diseño claymorfismo e interactividad táctil.
+ *
+ * @param text Texto visible dentro del botón.
+ * @param onClick Callback invocado al hacer clic en el botón.
+ * @param modifier Modificador composable para personalizar el diseño.
+ * @param enabled Estado de habilitación del botón.
+ * @param backgroundColor Color de fondo del botón.
+ * @param icon Composable opcional para desplegar un ícono junto al texto.
+ */
 @Composable
 fun RietiButton(
     text: String,
@@ -46,7 +62,7 @@ fun RietiButton(
             )
             .clickable(
                 interactionSource = interactionSource,
-                indication = null, // Quitamos el ripple por defecto para que luzca el clay
+                indication = null,
                 enabled = enabled,
                 onClick = onClick
             )

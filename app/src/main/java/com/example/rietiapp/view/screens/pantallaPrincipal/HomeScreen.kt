@@ -1,3 +1,9 @@
+/**
+ * Pantalla principal del sistema RIETI.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.screens.pantallaPrincipal
 
 import androidx.compose.animation.AnimatedVisibility
@@ -35,6 +41,12 @@ import androidx.compose.ui.unit.sp
 import com.example.rietiapp.R
 import com.example.rietiapp.view.components.PeligroInmediatoCard
 
+/**
+ * Muestra las opciones principales de la aplicación: iniciar reporte, consultar seguimiento y llamadas de emergencia.
+ *
+ * @param onReportarClick Callback para navegar al flujo de reporte.
+ * @param onSeguimientoClick Callback para navegar al flujo de seguimiento.
+ */
 @Composable
 fun HomeScreen(
     onReportarClick: () -> Unit,
@@ -60,7 +72,6 @@ fun HomeScreen(
                 .verticalScroll(scrollState)
                 .padding(PaddingValues(start = 24.dp, end = 24.dp, top = 24.dp, bottom = 40.dp))
         ) {
-            // Main Card (Like the bank card in the design)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -110,10 +121,9 @@ fun HomeScreen(
                     )
                 }
             }
-            
+
             Spacer(modifier = Modifier.weight(1f))
 
-            // Options Header
             Column {
                 Text(
                     text = "Opciones",
@@ -124,7 +134,6 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(16.dp))
             }
 
-            // Action Items (Styled like the recent list in the design)
             Column {
                 ActionItem(
                     title = "Reportar caso",
@@ -134,7 +143,7 @@ fun HomeScreen(
                     onClick = onReportarClick
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                
+
                 ActionItem(
                     title = "Dar seguimiento",
                     subtitle = "Consultar estado de reporte",
@@ -156,14 +165,12 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(16.dp))
             }
 
-            // Animated Danger Card
             AnimatedVisibility(visible = mostrarPeligro) {
                 PeligroInmediatoCard()
             }
-            
+
             Spacer(modifier = Modifier.weight(1f))
 
-            // Footer
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -185,6 +192,15 @@ fun HomeScreen(
     }
 }
 
+/**
+ * Elemento de opción de la lista de acciones de la pantalla principal.
+ *
+ * @param title Título del botón de acción.
+ * @param subtitle Descripción breve.
+ * @param icon Ícono decorativo.
+ * @param iconBgColor Color de fondo para el contenedor del ícono.
+ * @param onClick Callback invocado al presionar el ítem.
+ */
 @Composable
 fun ActionItem(title: String, subtitle: String, icon: ImageVector, iconBgColor: Color, onClick: () -> Unit) {
     Surface(

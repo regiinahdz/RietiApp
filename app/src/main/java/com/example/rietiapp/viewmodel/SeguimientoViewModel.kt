@@ -14,9 +14,12 @@ import kotlinx.coroutines.launch
 private const val TAG = "SEGUIMIENTO_DEBUG"
 
 /**
- * ViewModel que gestiona el estado y las operaciones para la consulta y seguimiento de reportes existentes.
+ * ViewModel que gestiona el estado y las operaciones para la consulta y seguimiento de reportes.
  *
  * @property repository Repositorio para consultar información del reporte por medio de la API REST.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
  */
 class SeguimientoViewModel(
     private val repository: ReporteRepository = ReporteRepository()
@@ -38,7 +41,7 @@ class SeguimientoViewModel(
     }
 
     /**
-     * Realiza una búsqueda asíncrona del reporte registrado en la base de datos a partir del folio en [uiState].
+     * Realiza una búsqueda asíncrona del reporte registrado a partir del folio en [uiState].
      *
      * @param onExito Callback invocado si el reporte se localiza con éxito.
      */
@@ -94,7 +97,7 @@ class SeguimientoViewModel(
     }
 
     /**
-     * Determina el índice numérico de la etapa de progreso a partir de la cadena de estatus retornada por la API.
+     * Determina el índice numérico de la etapa de progreso a partir de la cadena de estatus de la API.
      *
      * @param estado Etiqueta textual del estado.
      * @return Nivel numérico correspondiente en la escala de 1 a 5.

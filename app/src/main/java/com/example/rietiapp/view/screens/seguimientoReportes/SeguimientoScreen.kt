@@ -1,3 +1,9 @@
+/**
+ * Pantalla para ingresar un folio de reporte y consultar su estatus.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.screens.seguimientoReportes
 
 import androidx.compose.foundation.background
@@ -22,6 +28,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rietiapp.viewmodel.SeguimientoViewModel
 
+/**
+ * Pantalla con caja de entrada para el folio y botón para iniciar la búsqueda en el servidor.
+ *
+ * @param viewModel Instancia de [SeguimientoViewModel].
+ * @param onConsultarClick Callback invocado si la búsqueda es exitosa.
+ * @param onBackClick Callback para volver a la pantalla principal.
+ */
 @Composable
 fun SeguimientoScreen(
     viewModel: SeguimientoViewModel,
@@ -29,13 +42,11 @@ fun SeguimientoScreen(
     onBackClick: () -> Unit
 ) {
     val uiState = viewModel.uiState
-    
-    // Background based on the image's purple theme
+
     val bgColor = MaterialTheme.colorScheme.primary
 
     Column(modifier = Modifier.fillMaxSize().background(bgColor)) {
-        
-        // Header Section (Purple)
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -77,7 +88,6 @@ fun SeguimientoScreen(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        // Bottom Sheet Section (White with rounded corners)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -91,7 +101,6 @@ fun SeguimientoScreen(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-                // Drag Handle
                 Box(
                     modifier = Modifier.fillMaxWidth(),
                     contentAlignment = Alignment.Center

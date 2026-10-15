@@ -1,3 +1,9 @@
+/**
+ * Tarjeta de información sobre situaciones de peligro inminente y contacto de emergencia.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.components
 
 import android.content.Intent
@@ -17,6 +23,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 
+/**
+ * Tarjeta de advertencia para llamadas directas a los servicios de emergencia del 911 (C5).
+ */
 @Composable
 fun PeligroInmediatoCard() {
     val context = LocalContext.current
@@ -48,7 +57,6 @@ fun PeligroInmediatoCard() {
                 lineHeight = 20.sp
             )
 
-            // Tarjeta del C5
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -100,12 +108,12 @@ fun PeligroInmediatoCard() {
             )
 
             Text(
-                text = "El formulario RIETI es una herramienta de registro institucional y no sustituye la atención inmediata de emergencias del C5 ni las denuncias ante la Procuraduría de Protección de NNyA.",
+                text = "El formulario RIETI es una herramienta de registro institutional y no sustituye la atención inmediata de emergencias del C5 ni las denuncias ante la Procuraduría de Protección de NNyA.",
                 fontSize = 13.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 lineHeight = 18.sp
             )
-            
+
             Text(
                 text = "Si la situación es de observación o seguimiento sin riesgo inminente, puedes continuar completando el reporte en la aplicación.",
                 fontSize = 13.sp,

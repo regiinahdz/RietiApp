@@ -9,8 +9,13 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
 
 /**
- * Repositorio central que abstrae el acceso a fuentes de datos remotas para el envío de reportes,
- * sincronización de municipios y gestión de evidencias fotográficas en almacenamiento de S3.
+ * Repositorio central que abstrae el acceso a fuentes de datos remotas.
+ *
+ * Administra la sincronización de municipios, envío de reportes y la gestión
+ * de evidencias fotográficas en almacenamiento de S3.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
  */
 class ReporteRepository {
 
@@ -25,10 +30,7 @@ class ReporteRepository {
     suspend fun crearReporte(request: ReporteRequest) = api.crearReporte(request)
 
     /**
-     * Ejecuta el flujo de tres pasos para subir una imagen de evidencia adjunta:
-     * 1. Solicita la URL presignada para S3.
-     * 2. Realiza la carga de datos binarios directamente al bucket de S3.
-     * 3. Confirma el registro de la evidencia en la base de datos MySQL del servidor.
+     * Ejecuta el flujo de tres pasos para subir una imagen de evidencia adjunta.
      *
      * @param context Contexto de la aplicación para resolver el [Uri] del contenido.
      * @param folio Folio asignado al reporte.
@@ -37,7 +39,6 @@ class ReporteRepository {
      */
     suspend fun subirFotoEvidencia(context: Context, folio: String, uri: Uri): Boolean {
         try {
-            // Convertir la Uri a ByteArray para enviarla a S3
             val inputStream = context.contentResolver.openInputStream(uri) ?: return false
             val bytes = inputStream.readBytes()
             inputStream.close()
@@ -45,21 +46,18 @@ class ReporteRepository {
             val requestBody = bytes.toRequestBody("image/jpeg".toMediaTypeOrNull())
             val nombreArchivo = "foto_${System.currentTimeMillis()}.jpg"
 
-            // 1. Obtener URL firmada
             val presignedRes = api.obtenerPresignedUrl(
                 PresignedUrlRequest(folio = folio, nombreArchivo = nombreArchivo)
             )
             if (!presignedRes.isSuccessful || presignedRes.body() == null) return false
             val presignedData = presignedRes.body()!!
 
-            // 2. PUT directo a S3
             val s3Res = api.subirArchivoS3(
                 uploadUrl = presignedData.uploadUrl,
                 archivoBinario = requestBody
             )
             if (!s3Res.isSuccessful) return false
 
-            // 3. Confirmar evidencia registrada
             val confirmRes = api.confirmarEvidencia(
                 ConfirmarEvidenciaRequest(folio = folio, key = presignedData.key)
             )

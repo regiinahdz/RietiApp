@@ -1,3 +1,9 @@
+/**
+ * Componentes de mapas interactivos utilizando OpenStreetMap.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.components
 
 import android.content.Context
@@ -26,6 +32,14 @@ val ESRI_WORLD_STREET_MAP = object : OnlineTileSourceBase(
         return baseUrl + MapTileIndex.getZoom(pMapTileIndex) + "/" + MapTileIndex.getY(pMapTileIndex) + "/" + MapTileIndex.getX(pMapTileIndex)
     }
 }
+
+/**
+ * Mapa interactivo osmdroid integrado en Jetpack Compose.
+ *
+ * @param selectedGeoPoint Coordenadas del marcador seleccionado.
+ * @param onLocationSelected Callback invocado al seleccionar un punto en el mapa.
+ * @param modifier Modificador composable opcional.
+ */
 @Composable
 fun OsmMapView(
     selectedGeoPoint: GeoPoint?,

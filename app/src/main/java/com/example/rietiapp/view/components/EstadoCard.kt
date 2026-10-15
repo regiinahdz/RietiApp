@@ -1,3 +1,9 @@
+/**
+ * Componentes de estado de seguimiento para la aplicación RIETI.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.components
 
 import androidx.compose.foundation.background
@@ -17,6 +23,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * Tarjeta indicadora del nivel o estado de progreso en la consulta de folios.
+ *
+ * @param numero Número de la etapa en la secuencia.
+ * @param titulo Etiqueta descriptiva del paso de seguimiento.
+ * @param activo Indicador de si la etapa se encuentra activa actualmente.
+ */
 @Composable
 fun EstadoCard(
     numero: String,
@@ -43,7 +56,6 @@ fun EstadoCard(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Número circular
             Box(
                 modifier = Modifier
                     .size(40.dp)

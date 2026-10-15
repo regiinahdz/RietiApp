@@ -1,3 +1,9 @@
+/**
+ * Componente ejecutable del Paso 1 del formulario de reporte de incidencias.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.screens.formularioPantallas.pasos
 
 import android.app.TimePickerDialog
@@ -11,7 +17,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 /**
- * Componente ejecutable del Paso 1 del formulario de reporte de incidencias.
  * Permite capturar los datos principales de la observación: cantidad de menores,
  * rango de edad, género, actividad realizada, hora aproximada, nivel de riesgo y descripción detallada.
  *
@@ -71,7 +76,7 @@ fun Paso1Informacion(
 
     val maxCaracteres = 500
 
-    Column(
+    Card(
         modifier = modifier.fillMaxWidth()
     ) {
         Column(
@@ -91,7 +96,6 @@ fun Paso1Informacion(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // --- 1. CANTIDAD DE NIÑOS ---
             Text(
                 text = "¿Cuántas niñas, niños o adolescentes observaste? *",
                 style = MaterialTheme.typography.titleMedium
@@ -131,7 +135,6 @@ fun Paso1Informacion(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // --- 2. EDAD APROXIMADA ---
             Text(
                 text = "Edad aproximada *",
                 style = MaterialTheme.typography.titleMedium
@@ -171,7 +174,6 @@ fun Paso1Informacion(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // --- 3. GÉNERO ---
             Text(
                 text = "Género observado *",
                 style = MaterialTheme.typography.titleMedium
@@ -211,7 +213,6 @@ fun Paso1Informacion(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // --- 4. ACTIVIDAD OBSERVADA ---
             Text(
                 text = "¿Qué actividad estaban realizando? *",
                 style = MaterialTheme.typography.titleMedium
@@ -251,7 +252,6 @@ fun Paso1Informacion(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // --- 5. HORA DE OBSERVACIÓN ---
             Text(
                 text = "¿A qué hora aproximada observaste la situación?",
                 style = MaterialTheme.typography.titleMedium
@@ -289,7 +289,6 @@ fun Paso1Informacion(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // --- 6. RIESGO ---
             Text(
                 text = "¿Observaste alguna situación de riesgo?",
                 style = MaterialTheme.typography.titleMedium
@@ -329,7 +328,6 @@ fun Paso1Informacion(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // --- 7. DESCRIPCIÓN ---
             Text(
                 text = "Descripción de los hechos *",
                 style = MaterialTheme.typography.titleMedium

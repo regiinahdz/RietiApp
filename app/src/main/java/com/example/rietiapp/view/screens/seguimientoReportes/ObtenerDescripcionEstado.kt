@@ -1,5 +1,17 @@
+/**
+ * Función utilitaria para la descripción explicativa de cada estatus de reporte.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.screens.seguimientoReportes
 
+/**
+ * Retorna la descripción explicativa para el estado dado de un expediente.
+ *
+ * @param estado Nombre del estado a consultar.
+ * @return Explicación del estado.
+ */
 fun obtenerDescripcionEstado(
     estado: String
 ): String {
@@ -33,4 +45,3 @@ fun obtenerDescripcionEstado(
         else -> ""
     }
 }
-

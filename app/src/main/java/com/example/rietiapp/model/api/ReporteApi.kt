@@ -22,15 +22,19 @@ import retrofit2.http.Url
 
 /**
  * Interfaz de la API REST para el envío de reportes y gestión de evidencias en la plataforma RIETI.
+ *
  * Define endpoints HTTP administrados mediante Retrofit.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
  */
 interface ReporteApi {
 
     /**
      * Envía la solicitud para registrar un nuevo reporte de situación en el backend.
      *
-     * @param reporte Objeto de transferencia con los detalles del reporte (ubicación, datos observados, etc.).
-     * @return [Response] conteniendo un [ReporteResponse] con el folio asignado y estatus inicial.
+     * @param reporte Objeto de transferencia con los detalles del reporte.
+     * @return [Response] conteniendo un [ReporteResponse] con el folio asignado.
      */
     @POST("api/v1/reportes")
     suspend fun crearReporte(
@@ -41,7 +45,7 @@ interface ReporteApi {
      * Solicita una URL firmada de S3 para la carga directa de fotografías de evidencia.
      *
      * @param request Datos del reporte y del archivo a subir.
-     * @return [Response] conteniendo [PresignedUrlResponse] con la URL presignada y la clave asignada en S3.
+     * @return [Response] conteniendo [PresignedUrlResponse] con la URL presignada.
      */
     @POST("api/v1/evidencias/presigned-url")
     suspend fun obtenerPresignedUrl(
@@ -52,7 +56,7 @@ interface ReporteApi {
      * Realiza una carga binaria directa hacia Amazon S3 utilizando la URL presignada.
      *
      * @param uploadUrl URL presignada proporcionada por el backend.
-     * @param contentType Tipo MIME del archivo (por defecto `image/jpeg`).
+     * @param contentType Tipo MIME del archivo.
      * @param archivoBinario Contenido binario del archivo a subir.
      * @return [Response] con código HTTP indicando el resultado del envío en S3.
      */
@@ -64,9 +68,9 @@ interface ReporteApi {
     ): Response<Unit>
 
     /**
-     * Notifica al backend que un archivo ha sido subido exitosamente a S3 para asociarlo al folio.
+     * Notifica al backend que un archivo ha sido subido exitosamente a S3.
      *
-     * @param request Solicitud con el folio del reporte y la clave asignada al archivo.
+     * @param request Solicitud con el folio del reporte y la clave del archivo.
      * @return [Response] con la respuesta de confirmación.
      */
     @POST("api/v1/evidencias/confirmar")
@@ -86,7 +90,7 @@ interface ReporteApi {
      * Consulta el estado e información pública de un reporte a través de su folio único.
      *
      * @param folio Folio asignado al reporte durante su creación.
-     * @return [Response] conteniendo un [ConsultaReporteWrapper] con los detalles del reporte.
+     * @return [Response] conteniendo un [ConsultaReporteWrapper] con los detalles.
      */
     @GET("api/v1/reportes/{folio}")
     suspend fun consultarReporte(

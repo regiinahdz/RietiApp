@@ -1,3 +1,9 @@
+/**
+ * Pantalla para consultar la línea de progreso y estado detallado de un reporte.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.screens.seguimientoReportes
 
 import androidx.compose.foundation.background
@@ -20,6 +26,12 @@ import androidx.compose.ui.unit.sp
 import com.example.rietiapp.view.components.EstadoCard
 import com.example.rietiapp.viewmodel.SeguimientoViewModel
 
+/**
+ * Visualiza la información pública, fecha, municipio y barra de estatus del reporte.
+ *
+ * @param viewModel ViewModel con los datos del reporte recuperado.
+ * @param onBackClick Callback para regresar a la búsqueda.
+ */
 @Composable
 fun ConsultaReporteScreen(
     viewModel: SeguimientoViewModel,
@@ -39,8 +51,7 @@ fun ConsultaReporteScreen(
 
     Box(modifier = Modifier.fillMaxSize().background(bgColor)) {
         Column(modifier = Modifier.fillMaxSize()) {
-            
-            // Header
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -63,7 +74,6 @@ fun ConsultaReporteScreen(
                 )
             }
 
-            // Contenedor principal estilo Bottom Sheet
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -80,7 +90,6 @@ fun ConsultaReporteScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
 
-                    // Tarjeta Estado Actual
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -102,7 +111,6 @@ fun ConsultaReporteScreen(
                         }
                     }
 
-                    // Detalles
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -126,13 +134,12 @@ fun ConsultaReporteScreen(
 
                     Text("Progreso del reporte", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground)
 
-                    // Tarjetas de progreso
                     EstadoCard(numero = "1", titulo = "Recibido", activo = uiState.nivelProgreso >= 1)
                     EstadoCard(numero = "2", titulo = "En revisión", activo = uiState.nivelProgreso >= 2)
                     EstadoCard(numero = "3", titulo = "En seguimiento", activo = uiState.nivelProgreso >= 3)
                     EstadoCard(numero = "4", titulo = "Canalizado", activo = uiState.nivelProgreso >= 4)
                     EstadoCard(numero = "5", titulo = "Concluido", activo = uiState.nivelProgreso >= 5)
-                    
+
                     Spacer(modifier = Modifier.height(32.dp))
                 }
             }
@@ -140,6 +147,12 @@ fun ConsultaReporteScreen(
     }
 }
 
+/**
+ * Ítem genérico de etiqueta y valor para los detalles del reporte.
+ *
+ * @param label Título de la propiedad.
+ * @param value Valor textual de la propiedad.
+ */
 @Composable
 fun DetalleItem(label: String, value: String) {
     Column {

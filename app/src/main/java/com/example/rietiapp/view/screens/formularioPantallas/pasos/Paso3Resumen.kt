@@ -1,3 +1,9 @@
+/**
+ * Componente ejecutable del Paso 3 del formulario de reporte.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.screens.formularioPantallas.pasos
 
 import android.net.Uri
@@ -8,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 /**
- * Componente ejecutable del Paso 3 del formulario de reporte.
  * Despliega un resumen consolidado con toda la información capturada durante los pasos 1 y 2
  * para la revisión y confirmación previa al envío del reporte.
  *
@@ -36,7 +41,7 @@ fun Paso3Resumen(
     modifier: Modifier = Modifier,
     ubicacionDireccion: String = ""
 ) {
-    Column(
+    Card(
         modifier = modifier.fillMaxWidth()
     ) {
         Column(

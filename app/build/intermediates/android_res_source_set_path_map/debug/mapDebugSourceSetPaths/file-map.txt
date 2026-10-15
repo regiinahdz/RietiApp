@@ -1,8 +1,8 @@
-com.example.rietiapp-pngs-0 C:\Users\ovedc\AndroidStudioProjects\RietiApp - copia\app\build\generated\res\pngs\debug
-com.example.rietiapp-updated_navigation_xml-1 C:\Users\ovedc\AndroidStudioProjects\RietiApp - copia\app\build\generated\updated_navigation_xml\debug
-com.example.rietiapp-packageDebugResources-2 C:\Users\ovedc\AndroidStudioProjects\RietiApp - copia\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.example.rietiapp-packageDebugResources-3 C:\Users\ovedc\AndroidStudioProjects\RietiApp - copia\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.example.rietiapp-debug-4 C:\Users\ovedc\AndroidStudioProjects\RietiApp - copia\app\build\intermediates\merged_res\debug\mergeDebugResources
-com.example.rietiapp-debug-5 C:\Users\ovedc\AndroidStudioProjects\RietiApp - copia\app\src\debug\res
-com.example.rietiapp-main-6 C:\Users\ovedc\AndroidStudioProjects\RietiApp - copia\app\src\main\res
-gradleHome-0 C:\Users\ovedc\.gradle
+com.example.rietiapp-pngs-0 D:\DOCUMENTOS\tec\5TO\RIETIapp\app\build\generated\res\pngs\debug
+com.example.rietiapp-updated_navigation_xml-1 D:\DOCUMENTOS\tec\5TO\RIETIapp\app\build\generated\updated_navigation_xml\debug
+com.example.rietiapp-packageDebugResources-2 D:\DOCUMENTOS\tec\5TO\RIETIapp\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.example.rietiapp-packageDebugResources-3 D:\DOCUMENTOS\tec\5TO\RIETIapp\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.example.rietiapp-debug-4 D:\DOCUMENTOS\tec\5TO\RIETIapp\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.example.rietiapp-debug-5 D:\DOCUMENTOS\tec\5TO\RIETIapp\app\src\debug\res
+com.example.rietiapp-main-6 D:\DOCUMENTOS\tec\5TO\RIETIapp\app\src\main\res
+gradleHome-0 C:\Users\regih\.gradle

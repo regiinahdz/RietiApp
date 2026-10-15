@@ -1,3 +1,9 @@
+/**
+ * Tarjeta seleccionable para opciones de formularios y cuestionarios.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
 package com.example.rietiapp.view.components
 
 import androidx.compose.foundation.border
@@ -11,6 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+/**
+ * Tarjeta interactiva con estado de selección visual y soporte para títulos y descripciones.
+ *
+ * @param titulo Título de la opción.
+ * @param descripcion Explicación o detalle de la opción.
+ * @param selected `true` si la tarjeta se encuentra seleccionada, `false` de lo contrario.
+ * @param onClick Callback invocado al hacer clic sobre la tarjeta.
+ */
 @Composable
 fun RietiSelectableCard(
     titulo: String,
@@ -79,4 +93,3 @@ fun RietiSelectableCard(
         }
     }
 }
-

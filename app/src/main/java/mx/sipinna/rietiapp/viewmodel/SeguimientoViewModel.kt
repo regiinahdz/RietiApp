@@ -111,11 +111,13 @@ class SeguimientoViewModel(
      */
     private fun calcularNivelProgreso(estado: String): Int {
         return when (estado.lowercase().trim()) {
-            "registrado", "recibido" -> 1
+            "recibido", "registrado" -> 1
             "en revisión", "en revision" -> 2
-            "en seguimiento", "reincidente" -> 3
+            "en proceso", "en seguimiento" -> 3
             "canalizado" -> 4
             "concluido", "archivado" -> 5
+            "reincidencia", "reincidente" -> 3 // Reactiva el avance en etapa 'En proceso'
+            "cancelado" -> 0 // No avanza la barra por cancelación
             else -> 1
         }
     }

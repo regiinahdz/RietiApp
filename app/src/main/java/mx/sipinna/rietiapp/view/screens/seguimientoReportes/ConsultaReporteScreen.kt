@@ -1,9 +1,3 @@
-/**
- * Pantalla para consultar la línea de progreso y estado detallado de un reporte.
- *
- * @author Regina Hdz Moreno
- * @author Ricardo Oved Cornejo Castro
- */
 package mx.sipinna.rietiapp.view.screens.seguimientoReportes
 
 import androidx.compose.foundation.background
@@ -26,12 +20,6 @@ import androidx.compose.ui.unit.sp
 import mx.sipinna.rietiapp.view.components.EstadoCard
 import mx.sipinna.rietiapp.viewmodel.SeguimientoViewModel
 
-/**
- * Visualiza la información pública, fecha, municipio y barra de estatus del reporte.
- *
- * @param viewModel ViewModel con los datos del reporte recuperado.
- * @param onBackClick Callback para regresar a la búsqueda.
- */
 @Composable
 fun ConsultaReporteScreen(
     viewModel: SeguimientoViewModel,
@@ -48,6 +36,24 @@ fun ConsultaReporteScreen(
     }
 
     val bgColor = MaterialTheme.colorScheme.primary
+
+    // Evaluación de estados especiales
+    val estadoLimpio = reporte.estado.trim().lowercase()
+    val esCancelado = estadoLimpio == "cancelado"
+    val esReincidencia = estadoLimpio in listOf("reincidencia", "reincidente")
+
+    // Colores dinámicos para la tarjeta de Estado Actual según el estatus
+    val colorEstado = when {
+        esCancelado -> MaterialTheme.colorScheme.error
+        esReincidencia -> Color(0xFFE65100) // Ámbar / Naranja de advertencia
+        else -> MaterialTheme.colorScheme.primary
+    }
+
+    val colorFondoEstado = when {
+        esCancelado -> MaterialTheme.colorScheme.errorContainer
+        esReincidencia -> Color(0xFFFFF3E0)
+        else -> MaterialTheme.colorScheme.surface
+    }
 
     Box(modifier = Modifier.fillMaxSize().background(bgColor)) {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -91,27 +97,60 @@ fun ConsultaReporteScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
 
+                    // Tarjeta ESTADO ACTUAL
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .shadow(8.dp, RoundedCornerShape(20.dp), spotColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)),
+                            .shadow(8.dp, RoundedCornerShape(20.dp), spotColor = colorEstado.copy(alpha = 0.3f)),
                         shape = RoundedCornerShape(20.dp),
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                        colors = CardDefaults.cardColors(containerColor = colorFondoEstado)
                     ) {
                         Column(modifier = Modifier.padding(24.dp)) {
-                            Text("ESTADO ACTUAL", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "ESTADO ACTUAL",
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (esCancelado) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+
+                                if (esReincidencia) {
+                                    Surface(
+                                        color = Color(0xFFFFE0B2),
+                                        shape = RoundedCornerShape(8.dp)
+                                    ) {
+                                        Text(
+                                            text = "Reactivado",
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color(0xFFE65100),
+                                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                        )
+                                    }
+                                }
+                            }
+
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
                                 text = reporte.estado,
                                 fontSize = 24.sp,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = MaterialTheme.colorScheme.primary
+                                color = colorEstado
                             )
                             Spacer(modifier = Modifier.height(8.dp))
-                            Text(text = uiState.descripcionEstatus, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurface)
+                            Text(
+                                text = uiState.descripcionEstatus,
+                                fontSize = 14.sp,
+                                color = if (esCancelado) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onSurface
+                            )
                         }
                     }
 
+                    // Detalle del reporte
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -135,9 +174,10 @@ fun ConsultaReporteScreen(
 
                     Text("Progreso del reporte", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground)
 
+                    // Mantenemos únicamente las 5 tarjetas principales
                     EstadoCard(numero = "1", titulo = "Recibido", activo = uiState.nivelProgreso >= 1)
                     EstadoCard(numero = "2", titulo = "En revisión", activo = uiState.nivelProgreso >= 2)
-                    EstadoCard(numero = "3", titulo = "En seguimiento", activo = uiState.nivelProgreso >= 3)
+                    EstadoCard(numero = "3", titulo = "En proceso", activo = uiState.nivelProgreso >= 3)
                     EstadoCard(numero = "4", titulo = "Canalizado", activo = uiState.nivelProgreso >= 4)
                     EstadoCard(numero = "5", titulo = "Concluido", activo = uiState.nivelProgreso >= 5)
 
@@ -148,17 +188,27 @@ fun ConsultaReporteScreen(
     }
 }
 
-/**
- * Ítem genérico de etiqueta y valor para los detalles del reporte.
- *
- * @param label Título de la propiedad.
- * @param value Valor textual de la propiedad.
- */
 @Composable
-fun DetalleItem(label: String, value: String) {
-    Column {
-        Text(label, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(value, fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+private fun DetalleItem(
+    label: String,
+    value: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        Text(
+            text = label,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Text(
+            text = value,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurface
+        )
     }
 }

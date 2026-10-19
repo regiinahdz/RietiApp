@@ -1,0 +1,16 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Archivos de compilación y temporales
+build/
+app/build/
+.gradle/
+/captures
+.externalNativeBuild
+.cxx/
+
+# Configuración del IDE / Android Studio
+.idea/
+*.iml
+local.properties

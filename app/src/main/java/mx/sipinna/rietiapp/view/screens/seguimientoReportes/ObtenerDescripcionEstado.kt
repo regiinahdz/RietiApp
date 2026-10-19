@@ -1,47 +1,36 @@
-/**
- * Función utilitaria para la descripción explicativa de cada estatus de reporte.
- *
- * @author Regina Hdz Moreno
- * @author Ricardo Oved Cornejo Castro
- */
 package mx.sipinna.rietiapp.view.screens.seguimientoReportes
 
 /**
- * Retorna la descripción explicativa para el estado dado de un expediente.
+ * Retorna la descripción explicativa para el estado dado de un reporte.
  *
  * @param estado Nombre del estado a consultar.
- * @return Explicación del estado.
+ * @return Explicación clara del estado.
  */
 fun obtenerDescripcionEstado(
     estado: String
 ): String {
+    return when (estado.trim().lowercase()) {
+        "recibido", "registrado" ->
+            "El reporte ha sido recibido exitosamente y se encuentra registrado."
 
-    return when (estado) {
+        "en revisión", "en revision" ->
+            "La información y evidencia adjunta están siendo revisadas."
 
-        "Registrado" ->
-            "Expediente recién creado o registrado en el sistema."
+        "en proceso", "en seguimiento" ->
+            "Se están realizando las acciones y el seguimiento correspondiente para la atención del reporte."
 
-        "En revisión" ->
-            "La información y documentación están siendo revisadas."
+        "canalizado" ->
+            "El reporte fue remitido a la autoridad o institución competente para su atención."
 
-        "En seguimiento" ->
-            "Se requiere monitoreo o acciones posteriores."
+        "concluido", "archivado" ->
+            "Las acciones fueron completadas y el reporte ha finalizado su atención."
 
-        "Canalizado" ->
-            "El expediente fue enviado a otra área o institución para su atención."
+        "cancelado" ->
+            "El reporte ha sido cancelado y finalizado por causa justificada."
 
-        "Concluido" ->
-            "Las acciones correspondientes fueron realizadas y el expediente puede cerrarse."
+        "reincidencia", "reincidente" ->
+            "Este reporte previamente cerrado ha sido reabierto debido a una reincidencia registrada."
 
-        "Archivado" ->
-            "Expediente concluido que pasa al archivo para consulta posterior."
-
-        "Cancelado" ->
-            "El expediente deja de tener continuidad por alguna causa justificada."
-
-        "Reincidente" ->
-            "Un expediente previamente concluido vuelve a requerir atención."
-
-        else -> ""
+        else -> "El reporte se encuentra en trámite."
     }
 }

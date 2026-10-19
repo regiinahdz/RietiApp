@@ -1,0 +1,97 @@
+package mx.sipinna.rietiapp.model.api
+
+import mx.sipinna.rietiapp.model.datos.ConfirmarEvidenciaRequest
+import mx.sipinna.rietiapp.model.datos.ConfirmarEvidenciaResponse
+import mx.sipinna.rietiapp.model.datos.ConsultaReporteWrapper
+import mx.sipinna.rietiapp.model.datos.Municipio
+import mx.sipinna.rietiapp.model.datos.PresignedUrlRequest
+import mx.sipinna.rietiapp.model.datos.PresignedUrlResponse
+import mx.sipinna.rietiapp.model.datos.ReporteRequest
+import mx.sipinna.rietiapp.model.datos.ReporteResponse
+import okhttp3.RequestBody
+import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
+import retrofit2.http.Url
+
+/**
+ * Interfaz de la API REST para el envío de reportes y gestión de evidencias en la plataforma RIETI.
+ *
+ * Define endpoints HTTP administrados mediante Retrofit.
+ *
+ * @author Regina Hdz Moreno
+ * @author Ricardo Oved Cornejo Castro
+ */
+interface ReporteApi {
+
+    /**
+     * Envía la solicitud para registrar un nuevo reporte de situación en el backend.
+     *
+     * @param reporte Objeto de transferencia con los detalles del reporte.
+     * @return [Response] conteniendo un [ReporteResponse] con el folio asignado.
+     */
+    @POST("api/v1/reportes")
+    suspend fun crearReporte(
+        @Body reporte: ReporteRequest
+    ): Response<ReporteResponse>
+
+    /**
+     * Solicita una URL firmada de S3 para la carga directa de fotografías de evidencia.
+     *
+     * @param request Datos del reporte y del archivo a subir.
+     * @return [Response] conteniendo [PresignedUrlResponse] con la URL presignada.
+     */
+    @POST("api/v1/evidencias/presigned-url")
+    suspend fun obtenerPresignedUrl(
+        @Body request: PresignedUrlRequest
+    ): Response<PresignedUrlResponse>
+
+    /**
+     * Realiza una carga binaria directa hacia Amazon S3 utilizando la URL presignada.
+     *
+     * @param uploadUrl URL presignada proporcionada por el backend.
+     * @param contentType Tipo MIME del archivo.
+     * @param archivoBinario Contenido binario del archivo a subir.
+     * @return [Response] con código HTTP indicando el resultado del envío en S3.
+     */
+    @PUT
+    suspend fun subirArchivoS3(
+        @Url uploadUrl: String,
+        @Header("Content-Type") contentType: String = "image/jpeg",
+        @Body archivoBinario: RequestBody
+    ): Response<Unit>
+
+    /**
+     * Notifica al backend que un archivo ha sido subido exitosamente a S3.
+     *
+     * @param request Solicitud con el folio del reporte y la clave del archivo.
+     * @return [Response] con la respuesta de confirmación.
+     */
+    @POST("api/v1/evidencias/confirmar")
+    suspend fun confirmarEvidencia(
+        @Body request: ConfirmarEvidenciaRequest
+    ): Response<ConfirmarEvidenciaResponse>
+
+    /**
+     * Obtiene el catálogo completo de municipios registrados en el sistema.
+     *
+     * @return [Response] con la lista de objetos [Municipio].
+     */
+    @GET("api/v1/municipios")
+    suspend fun obtenerMunicipios(): Response<List<Municipio>>
+
+    /**
+     * Consulta el estado e información pública de un reporte a través de su folio único.
+     *
+     * @param folio Folio asignado al reporte durante su creación.
+     * @return [Response] conteniendo un [ConsultaReporteWrapper] con los detalles.
+     */
+    @GET("api/v1/reportes/{folio}")
+    suspend fun consultarReporte(
+        @Path("folio") folio: String
+    ): Response<ConsultaReporteWrapper>
+}

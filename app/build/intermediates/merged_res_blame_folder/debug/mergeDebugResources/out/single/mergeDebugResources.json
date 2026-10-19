@@ -1,70 +1,110 @@
 [
     {
-        "merged": "com.example.rietiapp-debug-47:/xml_backup_rules.xml.flat",
-        "source": "com.example.rietiapp-main-49:/xml/backup_rules.xml"
+        "merged": "mx.sipinna.rietiapp-debug-47:/xml_backup_rules.xml.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/drawable_logo_rieti.png.flat",
-        "source": "com.example.rietiapp-main-49:/drawable/logo_rieti.png"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-xxxhdpi_ic_launcher_monochrome.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-xxxhdpi/ic_launcher_monochrome.webp"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.example.rietiapp-main-49:/drawable/ic_launcher_foreground.xml"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.rietiapp-main-49:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-xhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.example.rietiapp-main-49:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "mx.sipinna.rietiapp-debug-47:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/drawable/ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.rietiapp-main-49:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.rietiapp-main-49:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.example.rietiapp-main-49:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "mx.sipinna.rietiapp-debug-47:/drawable_logo_rieti.png.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/drawable/logo_rieti.png"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.rietiapp-main-49:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.example.rietiapp-main-49:/drawable/ic_launcher_background.xml"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.rietiapp-main-49:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.rietiapp-main-49:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-hdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.rietiapp-main-49:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-mdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.rietiapp-main-49:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "mx.sipinna.rietiapp-debug-47:/xml_data_extraction_rules.xml.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.rietiapp-main-49:/xml/data_extraction_rules.xml"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-xxhdpi/ic_launcher_foreground.webp"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.rietiapp-main-49:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.rietiapp-debug-47:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.example.rietiapp-main-49:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-mdpi_ic_launcher_monochrome.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-mdpi/ic_launcher_monochrome.webp"
+    },
+    {
+        "merged": "mx.sipinna.rietiapp-debug-47:/drawable_ic_launcher_background.xml.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-xxhdpi_ic_launcher_monochrome.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-xxhdpi/ic_launcher_monochrome.webp"
+    },
+    {
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-hdpi_ic_launcher_monochrome.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-hdpi/ic_launcher_monochrome.webp"
+    },
+    {
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "mx.sipinna.rietiapp-debug-47:/mipmap-xhdpi_ic_launcher_monochrome.webp.flat",
+        "source": "mx.sipinna.rietiapp-main-49:/mipmap-xhdpi/ic_launcher_monochrome.webp"
     }
 ]

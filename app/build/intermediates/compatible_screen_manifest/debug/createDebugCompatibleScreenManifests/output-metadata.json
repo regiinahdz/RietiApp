@@ -4,7 +4,7 @@
     "type": "COMPATIBLE_SCREEN_MANIFEST",
     "kind": "Directory"
   },
-  "applicationId": "mx.rocc.rietiapp",
+  "applicationId": "mx.sipinna.rietiapp",
   "variantName": "debug",
   "elements": []
 }

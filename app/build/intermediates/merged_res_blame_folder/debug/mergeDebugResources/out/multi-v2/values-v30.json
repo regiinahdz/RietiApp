@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.rietiapp-mergeDebugResources-45:/values-v30/values-v30.xml",
+            "outputFile": "mx.sipinna.rietiapp-mergeDebugResources-45:/values-v30/values-v30.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\regih\\.gradle\\caches\\9.6.0\\transforms\\81bf77658effd1f82563f38871b8263b\\transformed\\material3\\res\\values-v30\\values-v30.xml",
+                    "source": "C:\\Users\\ovedc\\.gradle\\caches\\9.6.0\\transforms\\0af32a84e519aed562d3741488d9d893\\transformed\\material3\\res\\values-v30\\values-v30.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

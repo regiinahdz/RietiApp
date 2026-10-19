@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.rietiapp"
+    namespace = "mx.sipinna.rietiapp"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "mx.rocc.rietiapp"
+        applicationId = "mx.sipinna.rietiapp"
         minSdk = 24
         targetSdk = 37
         versionCode = 1

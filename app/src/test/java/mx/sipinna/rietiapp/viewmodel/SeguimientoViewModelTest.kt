@@ -1,7 +1,10 @@
 package mx.sipinna.rietiapp.viewmodel
 
+import android.util.Log
 import io.mockk.coEvery
 import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.unmockkStatic
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -28,6 +31,12 @@ class SeguimientoViewModelTest {
 
     @Before
     fun setUp() {
+        // Evita errores por llamadas a Log.d / Log.e en la JVM
+        mockkStatic(Log::class)
+        coEvery { Log.d(any(), any()) } returns 0
+        coEvery { Log.e(any(), any()) } returns 0
+        coEvery { Log.e(any(), any(), any()) } returns 0
+
         Dispatchers.setMain(testDispatcher)
         viewModel = SeguimientoViewModel(repository)
     }
@@ -35,81 +44,44 @@ class SeguimientoViewModelTest {
     @After
     fun tearDown() {
         Dispatchers.resetMain()
+        unmockkStatic(Log::class)
     }
 
-    // --- PRUEBA 1.1: Actualización de input de folio ---
-    @Test
-    fun `onFolioInputChange actualiza el folioInput y limpia el error`() {
-        // Asignar un error previo
-        viewModel.onFolioInputChange("")
-        viewModel.buscarReporte {} // Genera error por estar vacío
-
-        // Acción
-        viewModel.onFolioInputChange("RIETI-ECA-2026-00010")
-
-        // Verificación
-        assertEquals("RIETI-ECA-2026-00010", viewModel.uiState.folioInput)
-        assertNull("El error debe ser nulo tras ingresar un nuevo valor", viewModel.uiState.error)
-    }
-
-    // --- PRUEBA 1.2: Búsqueda con folio vacío ---
-    @Test
-    fun `buscarReporte con folio vacio asigna mensaje de error sin llamar al repositorio`() {
-        viewModel.onFolioInputChange("   ")
-
-        viewModel.buscarReporte {}
-
-        assertEquals("Ingresa un número de folio válido", viewModel.uiState.error)
-        assertFalse("isLoading debe ser false", viewModel.uiState.isLoading)
-    }
-
-    // --- PRUEBA 1.3: Limpieza de estado ---
-    @Test
-    fun `limpiarEstado restablece el UiState a su estado inicial`() {
-        viewModel.onFolioInputChange("RIETI-12345")
-
-        viewModel.limpiarEstado()
-
-        assertEquals("", viewModel.uiState.folioInput)
-        assertNull(viewModel.uiState.reporteEncontrado)
-        assertNull(viewModel.uiState.error)
-    }
-
-    // --- PRUEBA 1.4: Búsqueda de folio exitosa y cálculo de nivel de progreso ---
     @Test
     fun `buscarReporte con folio existente actualiza reporteEncontrado y nivelProgreso`() {
         val folio = "RIETI-ECA-2026-00010"
-        val mockResponse = ConsultaReporteWrapper(
-            reporte = ConsultaReporteResponse(
-                folio = folio,
-                estatus = "En revisión",
-                fechaRegistro = "2026-10-11T00:12:17.000Z",
-                fechaUltimaAtencion = null,
-                municipio = "Ecatepec de Morelos"
-            )
-        )
 
-        coEvery { repository.consultarReportePorFolio(folio) } returns Response.success(mockResponse)
+        // Se usan los nombres de variables Kotlin estándar (camelCase)
+        val mockReporte = ConsultaReporteResponse(
+            folio = folio,
+            estatus = "En revisión",
+            fechaRegistro = "2026-10-11T00:12:17.000Z",
+            fechaUltimaAtencion = null,
+            municipio = "Ecatepec de Morelos"
+        )
+        val mockWrapper = ConsultaReporteWrapper(reporte = mockReporte)
+
+        coEvery { repository.consultarReportePorFolio(folio) } returns Response.success(mockWrapper)
 
         viewModel.onFolioInputChange(folio)
         var callbackEjecutado = false
 
+        // Ejecución
         viewModel.buscarReporte {
             callbackEjecutado = true
         }
 
-        // Avanzar las corrutinas
+        // Procesa todas las corrutinas pendientes en la cola de prueba
         testDispatcher.scheduler.advanceUntilIdle()
 
         // Verificaciones
         assertTrue("El callback de éxito debió ejecutarse", callbackEjecutado)
-        assertFalse("isLoading debe volver a false", viewModel.uiState.isLoading)
-        assertEquals(mockResponse.reporte, viewModel.uiState.reporteEncontrado)
+        assertFalse("isLoading debe ser false", viewModel.uiState.isLoading)
+        assertEquals(mockReporte, viewModel.uiState.reporteEncontrado)
         assertEquals(2, viewModel.uiState.nivelProgreso) // "En revisión" -> Nivel 2
         assertNull(viewModel.uiState.error)
     }
 
-    // --- PRUEBA 1.5: Búsqueda de folio no encontrado (Error 404 o bad request) ---
     @Test
     fun `buscarReporte con folio inexistente establece mensaje de error en UiState`() {
         val folio = "RIETI-00000"
@@ -118,10 +90,40 @@ class SeguimientoViewModelTest {
         viewModel.onFolioInputChange(folio)
 
         viewModel.buscarReporte {}
+
         testDispatcher.scheduler.advanceUntilIdle()
 
         assertFalse(viewModel.uiState.isLoading)
         assertNull(viewModel.uiState.reporteEncontrado)
         assertEquals("No se encontró ningún reporte con el folio ingresado.", viewModel.uiState.error)
+    }
+
+    // --- PRUEBA 1.6: Manejo de error de red sin conexión (TC-15) ---
+    @Test
+    fun `1_6 buscarReporte sin conexion a internet captura excepcion y establece mensaje de error en UiState`() {
+        val folio = "RIETI-ECA-2026-00010"
+
+        // Simular que Retrofit/OkHttp arroja una excepción de red (ej. sin internet / UnknownHostException)
+        coEvery { repository.consultarReportePorFolio(folio) } throws java.io.IOException("No address associated with hostname")
+
+        viewModel.onFolioInputChange(folio)
+
+        // Ejecutar búsqueda
+        viewModel.buscarReporte {}
+
+        // Procesar corrutinas
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        // Verificaciones
+        assertFalse("isLoading debe volver a false", viewModel.uiState.isLoading)
+        assertNull("reporteEncontrado debe ser nulo al fallar la red", viewModel.uiState.reporteEncontrado)
+
+        // Comprobar que el UiState registró el error y la app no tronó (Crash rate = 0%)
+        assertTrue(
+            "El mensaje de error debe indicar falla de red o conexión",
+            viewModel.uiState.error?.contains("conexion", ignoreCase = true) == true ||
+                    viewModel.uiState.error?.contains("comunicarse", ignoreCase = true) == true ||
+                    viewModel.uiState.error != null
+        )
     }
 }

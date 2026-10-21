@@ -7,6 +7,12 @@ android {
     namespace = "mx.sipinna.rietiapp"
     compileSdk {
         version = release(37)
+
+        testOptions {
+            unitTests {
+                isReturnDefaultValues = true
+            }
+        }
     }
 
     defaultConfig {
@@ -17,6 +23,16 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/LICENSE.md"
+            excludes += "/META-INF/LICENSE-notice.md"
+            excludes += "/META-INF/LICENSE"
+            excludes += "/META-INF/NOTICE"
+        }
     }
 
     buildTypes {
@@ -36,6 +52,7 @@ android {
 }
 
 dependencies {
+    // --- Compose & UI ---
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
@@ -48,20 +65,26 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.navigation:navigation-compose:2.8.0")
     implementation("org.osmdroid:osmdroid-android:6.1.20")
-
     implementation("io.coil-kt:coil-compose:2.6.0")
 
+    // --- Red & Corrutinas ---
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
-
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
 
-    testImplementation(libs.junit)
+    // --- Pruebas Unitarias (Carpeta test) ---
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("io.mockk:mockk:1.13.8")
+
+    // --- Pruebas Instrumentadas UI (Carpeta androidTest) ---
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("io.mockk:mockk-android:1.13.8")
+
+    // Herramientas de depuración para Compose Test
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

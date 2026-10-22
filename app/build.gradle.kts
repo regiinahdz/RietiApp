@@ -64,6 +64,7 @@ dependencies {
 
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.navigation:navigation-compose:2.8.0")
+    implementation(libs.androidx.navigation.testing)
     implementation("org.osmdroid:osmdroid-android:6.1.20")
     implementation("io.coil-kt:coil-compose:2.6.0")
 
@@ -74,7 +75,7 @@ dependencies {
 
     // --- Pruebas Unitarias (Carpeta test) ---
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.1")
     testImplementation("io.mockk:mockk:1.13.8")
 
     // --- Pruebas Instrumentadas UI (Carpeta androidTest) ---

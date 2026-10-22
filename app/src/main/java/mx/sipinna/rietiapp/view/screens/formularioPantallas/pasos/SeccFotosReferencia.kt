@@ -1,5 +1,7 @@
 package mx.sipinna.rietiapp.view.screens.formularioPantallas.pasos
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -10,27 +12,103 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddAPhoto
+import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import coil.compose.AsyncImage
+import java.io.File
 
 @Composable
 fun SeccFotosReferencia(
     fotosUris: List<Uri>,
     onFotosChange: (List<Uri>) -> Unit
 ) {
+    val context = LocalContext.current
+    val maxFotos = 2
+
+    // Estado para controlar el diálogo de elección (Cámara vs Galería)
+    var mostrarOpciones by remember { mutableStateOf(false) }
+
+    // Estado para almacenar la Uri temporal cuando se toma una foto
+    var tempCameraUri by remember { mutableStateOf<Uri?>(null) }
+
+    // 1. Launcher para seleccionar imágenes de la Galería
     val photoPickerLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.PickMultipleVisualMedia(maxItems = 3)
+        contract = ActivityResultContracts.PickMultipleVisualMedia(maxItems = maxFotos)
     ) { uris ->
         if (uris.isNotEmpty()) {
-            val combinadas = (fotosUris + uris).distinct().take(3)
-            onFotosChange(combinadas)
+            val fotosRestantes = maxFotos - fotosUris.size
+            if (fotosRestantes > 0) {
+                val nuevas = uris.take(fotosRestantes)
+                val combinadas = (fotosUris + nuevas).distinct().take(maxFotos)
+                onFotosChange(combinadas)
+            }
+        }
+    }
+
+    // 2. Launcher para tomar foto con la Cámara
+    val cameraLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicture()
+    ) { exitoso ->
+        if (exitoso && tempCameraUri != null) {
+            if (fotosUris.size < maxFotos) {
+                val combinadas = (fotosUris + tempCameraUri!!).distinct().take(maxFotos)
+                onFotosChange(combinadas)
+            }
+        }
+    }
+
+    // Función auxiliar para abrir la cámara
+    fun abrirCamara() {
+        if (fotosUris.size >= maxFotos) return
+        try {
+            val photoFile = File.createTempFile(
+                "JPEG_${System.currentTimeMillis()}_",
+                ".jpg",
+                context.cacheDir
+            )
+            val uri = FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.fileprovider",
+                photoFile
+            )
+            tempCameraUri = uri
+            cameraLauncher.launch(uri)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    // 3. Launcher para solicitar permiso de Cámara en tiempo de ejecución
+    val cameraPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { concedido ->
+        if (concedido) {
+            abrirCamara()
+        }
+    }
+
+    // Lógica para verificar permisos antes de capturar foto
+    fun ejecutarCamaraConPermiso() {
+        val tienePermiso = ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if (tienePermiso) {
+            abrirCamara()
+        } else {
+            cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
     }
 
@@ -39,7 +117,7 @@ fun SeccFotosReferencia(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
-            text = "Fotografías de evidencia (opcional, máx. 3)",
+            text = "Fotografías de evidencia (opcional, máx. $maxFotos)",
             style = MaterialTheme.typography.titleMedium
         )
 
@@ -48,24 +126,57 @@ fun SeccFotosReferencia(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(
-                onClick = {
-                    photoPickerLauncher.launch(
-                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+            Box {
+                Button(
+                    onClick = { mostrarOpciones = true },
+                    enabled = fotosUris.size < maxFotos
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.AddAPhoto,
+                        contentDescription = "Agregar Foto"
                     )
-                },
-                enabled = fotosUris.size < 3
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AddAPhoto,
-                    contentDescription = "Agregar Foto"
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text("Adjuntar foto")
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Adjuntar foto")
+                }
+
+                // Menú desplegable para elegir entre tomar foto o galería
+                DropdownMenu(
+                    expanded = mostrarOpciones,
+                    onDismissRequest = { mostrarOpciones = false }
+                ) {
+                    DropdownMenuItem(
+                        text = { Text("Tomar foto") },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.CameraAlt,
+                                contentDescription = null
+                            )
+                        },
+                        onClick = {
+                            mostrarOpciones = false
+                            ejecutarCamaraConPermiso()
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Seleccionar de galería") },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.PhotoLibrary,
+                                contentDescription = null
+                            )
+                        },
+                        onClick = {
+                            mostrarOpciones = false
+                            photoPickerLauncher.launch(
+                                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                            )
+                        }
+                    )
+                }
             }
 
             Text(
-                text = "${fotosUris.size}/3",
+                text = "${fotosUris.size}/$maxFotos",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

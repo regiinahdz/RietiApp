@@ -54,17 +54,17 @@ class NavHostTest {
     }
 
     @Test
-    fun navHost_inicio_muestraPantallaInicial() {
+    fun navHost_TC09_inicio_muestraPantallaInicial() {
         composeTestRule.waitForIdle()
         val currentRoute = navController.currentBackStackEntry?.destination?.route
         assertEquals(Routes.HOME, currentRoute)
     }
 
+    // --- TC-16: Transición a Selección de Tipo de Reporte ---
     @Test
-    fun navHost_clickNavegarATipoReporte_cambiaDeRutaCorrectamente() {
+    fun navHost_TC16_clickNavegarATipoReporte_cambiaDeRutaCorrectamente() {
         composeTestRule.waitForIdle()
 
-        // Usa el texto único de la primera tarjeta: "Reportar caso"
         composeTestRule
             .onNodeWithText("Reportar caso", substring = true, ignoreCase = true)
             .performClick()
@@ -75,11 +75,11 @@ class NavHostTest {
         assertEquals(Routes.TIPO_REPORTE, currentRoute)
     }
 
+    // --- TC-17, TC-18: Transición a Seguimiento de Reporte e Intenciones ---
     @Test
-    fun navHost_clickNavegarASeguimiento_cambiaDeRutaCorrectamente() {
+    fun navHost_TC17_TC18_clickNavegarASeguimiento_cambiaDeRutaCorrectamente() {
         composeTestRule.waitForIdle()
 
-        // Usa el texto único de la segunda tarjeta: "Dar seguimiento"
         composeTestRule
             .onNodeWithText("Dar seguimiento", substring = true, ignoreCase = true)
             .performClick()

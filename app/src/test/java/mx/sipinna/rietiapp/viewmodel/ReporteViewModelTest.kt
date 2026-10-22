@@ -13,9 +13,9 @@ class ReporteViewModelTest {
         viewModel = ReporteViewModel(repository = io.mockk.mockk(relaxed = true))
     }
 
-    // --- PRUEBA 2.1: Actualización de estado del formulario ---
+    // --- TC-01, TC-03, TC-04: Llenado de Formulario y Estado Inmutable ---
     @Test
-    fun `updateState modifica el UiState de forma inmutable`() {
+    fun `TC01, TC03, TC04 - updateState modifica el UiState de forma inmutable`() {
         viewModel.updateState { state ->
             state.copy(
                 descripcion = "Reporte de prueba en vía pública",
@@ -29,9 +29,9 @@ class ReporteViewModelTest {
         assertEquals("ciudadano@test.com", viewModel.uiState.correo)
     }
 
-    // --- PRUEBA 2.2: Actualización y resolución de ubicación ---
+    // --- TC-02, TC-07, TC-08: Resolución y Actualización de Ubicación GPS ---
     @Test
-    fun `resolverYActualizarUbicacion actualiza latitud, longitud y direccion`() {
+    fun `TC02, TC07, TC08 - resolverYActualizarUbicacion actualiza latitud longitud y direccion`() {
         val lat = 19.6097
         val lng = -99.0600
         val direccion = "Av. Central, Ecatepec"
